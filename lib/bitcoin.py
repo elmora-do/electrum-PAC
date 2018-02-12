@@ -40,8 +40,8 @@ import x11_hash
 
 
 # PAC and bip32, bip44 constants
-# https://github.com/PACpay/PAC/blob/master/src/chainparams.cpp
-# https://github.com/PACpay/PAC/ 0.11.0 Release notes for drkp/drkv/DRKP/DRKV
+# https://github.com/PACCommunity/PAC/blob/master/src/chainparams.cpp
+# https://github.com/PACCommunity/PAC/ 0.11.0 Release notes for drkp/drkv/DRKP/DRKV
 # https://github.com/satoshilabs/slips/blob/master/slip-0044.md
 TESTNET = False
 ADDRTYPE_P2PKH = 76
@@ -50,7 +50,7 @@ WIF = 204
 XPRV_HEADER = 0x0488ade4
 XPUB_HEADER = 0x0488b21e
 HEADERS_URL = ''  # TODO headers bootstrap
-GENESIS = '00000ffd590b1485b3caadc19b22e6379c733355108f107a430458cdf3407ab6'
+GENESIS = '00000354655ff039a51273fe61d3b493bd2897fe6c16f732dbc4ae19f04b789e'
 
 
 def set_testnet():
@@ -66,7 +66,7 @@ def set_testnet():
     XPUB_HEADER = 0x043587cf
     HEADERS_URL = ''  # TODO headers bootstrap
     GENESIS = '0000' + \
-              '0bafbc94add76cb75e2ec92894837288a481e5c005f6563d91623bf8bc2c'
+              '0da63bd9478b655ef6bf1bf76cd9af05202ab68643f9091e049b2b5280ed'
 
 
 ################################## transactions
