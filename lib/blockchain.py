@@ -37,7 +37,7 @@ target_spacing = 2.5 * 60 # PAC: 2.5 minutes
 interval = target_timespan / target_spacing # 576
 max_target = 0x00000ffff0000000000000000000000000000000000000000000000000000000
 
-START_CALC_HEIGHT = 70560
+START_CALC_HEIGHT = 13000
 USE_DIFF_CALC = False
 
 def bits_to_target(bits):
