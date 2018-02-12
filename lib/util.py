@@ -36,7 +36,7 @@ import threading
 import hmac
 from i18n import _
 
-base_units = {'DASH':8, 'mDASH':5, 'uDASH':2}
+base_units = {'PAC':8, 'mPAC':5, 'uPAC':2}
 fee_levels = [_('Within 25 blocks'), _('Within 10 blocks'), _('Within 5 blocks'), _('Within 2 blocks'), _('In the next block')]
 
 def normalize_version(v):
@@ -285,7 +285,7 @@ def android_data_dir():
     return PythonActivity.mActivity.getFilesDir().getPath() + '/data'
 
 def android_headers_dir():
-    d = android_ext_dir() + '/org.electrum_dash.electrum_dash'
+    d = android_ext_dir() + '/org.electrum_PAC.electrum_PAC'
     if not os.path.exists(d):
         os.mkdir(d)
     return d
@@ -294,7 +294,7 @@ def android_check_data_dir():
     """ if needed, move old directory to sandbox """
     ext_dir = android_ext_dir()
     data_dir = android_data_dir()
-    old_electrum_dir = ext_dir + '/electrum-dash'
+    old_electrum_dir = ext_dir + '/electrum-PAC'
     if not os.path.exists(data_dir) and os.path.exists(old_electrum_dir):
         import shutil
         new_headers_path = android_headers_dir() + headers_file_name()
@@ -313,11 +313,11 @@ def user_dir():
     if 'ANDROID_DATA' in os.environ:
         return android_check_data_dir()
     elif os.name == 'posix':
-        return os.path.join(os.environ["HOME"], ".electrum-dash")
+        return os.path.join(os.environ["HOME"], ".electrum-PAC")
     elif "APPDATA" in os.environ:
-        return os.path.join(os.environ["APPDATA"], "Electrum-DASH")
+        return os.path.join(os.environ["APPDATA"], "Electrum-PAC")
     elif "LOCALAPPDATA" in os.environ:
-        return os.path.join(os.environ["LOCALAPPDATA"], "Electrum-DASH")
+        return os.path.join(os.environ["LOCALAPPDATA"], "Electrum-PAC")
     else:
         #raise Exception("No home directory found in environment variables.")
         return
@@ -416,16 +416,16 @@ def time_difference(distance_in_time, include_seconds):
 
 
 mainnet_block_explorers = {
-    'Dash.org': ('https://explorer.dash.org',
+    'PAC.org': ('https://explorer.PAC.org',
                        {'tx': 'tx', 'addr': 'address'}),
-    'Bchain.info': ('https://bchain.info/DASH',
+    'Bchain.info': ('https://bchain.info/PAC',
                        {'tx': 'tx', 'addr': 'addr'}),
     'system default': ('blockchain:',
                        {'tx': 'tx', 'addr': 'address'}),
 }
 
 testnet_block_explorers = {
-    'Dash.org': ('https://test.explorer.dash.org',
+    'PAC.org': ('https://test.explorer.PAC.org',
                        {'tx': 'tx', 'addr': 'address'}),
     'system default': ('blockchain:',
                        {'tx': 'tx', 'addr': 'address'}),
@@ -436,7 +436,7 @@ def block_explorer_info():
     return testnet_block_explorers if bitcoin.TESTNET else mainnet_block_explorers
 
 def block_explorer(config):
-    return config.get('block_explorer', 'Dash.org')
+    return config.get('block_explorer', 'PAC.org')
 
 def block_explorer_tuple(config):
     return block_explorer_info().get(block_explorer(config))
@@ -461,12 +461,12 @@ def parse_URI(uri, on_pr=None):
 
     if ':' not in uri:
         if not bitcoin.is_address(uri):
-            raise BaseException("Not a Dash address")
+            raise BaseException("Not a PAC address")
         return {'address': uri}
 
     u = urlparse.urlparse(uri)
-    if u.scheme != 'dash':
-        raise BaseException("Not a Dash URI")
+    if u.scheme != 'PAC':
+        raise BaseException("Not a PAC URI")
     address = u.path
 
     # python for android fails to parse query
@@ -483,7 +483,7 @@ def parse_URI(uri, on_pr=None):
     out = {k: v[0] for k, v in pq.items()}
     if address:
         if not bitcoin.is_address(address):
-            raise BaseException("Invalid Dash address:" + address)
+            raise BaseException("Invalid PAC address:" + address)
         out['address'] = address
     if 'amount' in out:
         am = out['amount']
@@ -534,7 +534,7 @@ def create_URI(addr, amount, message):
         if type(message) == unicode:
             message = message.encode('utf8')
         query.append('message=%s'%urllib.quote(message))
-    p = urlparse.ParseResult(scheme='dash', netloc='', path=addr, params='',
+    p = urlparse.ParseResult(scheme='PAC', netloc='', path=addr, params='',
                              query='&'.join(query), fragment='')
     return urlparse.urlunparse(p)
 

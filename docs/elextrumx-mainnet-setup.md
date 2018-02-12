@@ -1,28 +1,28 @@
 # Setup electrumx server with docker
 
-## 1. Setup dashd node with docker
+## 1. Setup PACd node with docker
 
-Used docker dashd image has `txindex=1` setting in dash.conf,
+Used docker PACd image has `txindex=1` setting in PAC.conf,
 which is need by electrumx server.
 
 Create network to link with electrumx server.
 
 ```
-docker network create dash-mainnet
+docker network create PAC-mainnet
 ```
 
-Create volume to store dashd data and settings.
+Create volume to store PACd data and settings.
 
 ```
-docker volume create dashd-data
+docker volume create PACd-data
 ```
 
-Start dashd container.
+Start PACd container.
 
 ```
-docker run --restart=always -v dashd-data:/dash \
-    --name=dashd-node --net dash-mainnet -d \
-    -p 9999:9999 -p 127.0.0.1:9998:9998 zebralucky/dashd
+docker run --restart=always -v PACd-data:/PAC \
+    --name=PACd-node --net PAC-mainnet -d \
+    -p 9999:9999 -p 127.0.0.1:9998:9998 zebralucky/PACd
 ```
 
 **Notes**:
@@ -34,17 +34,17 @@ Copy or change RPC password. Random password generated
 on first container startup.
 
 ```
-docker exec -it dashd-node bash -l
+docker exec -it PACd-node bash -l
 
 # ... login to container
 
-cat .dashcore/dash.conf | grep rpcpassword
+cat .PACcore/PAC.conf | grep rpcpassword
 ```
 
-See log of dashd.
+See log of PACd.
 
 ```
-docker logs dashd-node
+docker logs PACd-node
 ```
 
 ## 2. Setup electrumx server with docker
@@ -52,18 +52,18 @@ docker logs dashd-node
 Create volume to store elextrumx server data and settings.
 
 ```
-docker volume create electrumx-dash-data
+docker volume create electrumx-PAC-data
 ```
 
 Start elextrumx container.
 
 ```
-docker run --restart=always -v electrumx-dash-data:/data \
-    --name electrumx-dash --net dash-mainnet -d \
-    -p 50001:50001 -p 50002:50002 zebralucky/electrumx-dash:mainnet
+docker run --restart=always -v electrumx-PAC-data:/data \
+    --name electrumx-PAC --net PAC-mainnet -d \
+    -p 50001:50001 -p 50002:50002 zebralucky/electrumx-PAC:mainnet
 ```
 
-Change DAEMON_URL `rpcpasswd` to password from dashd and creaate SSL cert.
+Change DAEMON_URL `rpcpasswd` to password from PACd and creaate SSL cert.
 
 **Notes**:
  - DAEMON_URL as each URL can not contain some symbols.
@@ -72,7 +72,7 @@ Change DAEMON_URL `rpcpasswd` to password from dashd and creaate SSL cert.
  https://github.com/moby/moby/issues/22054
 
 ```
-docker exec -it electrumx-dash bash -l
+docker exec -it electrumx-PAC bash -l
 
 # ... login to container
 
@@ -97,13 +97,13 @@ exit
 
 # Restart electrumx container to switch on new RPC password
 
-docker restart electrumx-dash
+docker restart electrumx-PAC
 ```
 
 See log of electrumx server.
 
 ```
-docker exec -it electrumx-dash bash -l
+docker exec -it electrumx-PAC bash -l
 
 # ... login to container
 
@@ -112,5 +112,5 @@ tail /data/log/current
 # or less /data/log/current
 ```
 
-Wait some time, when electrumx sync with dashd and
+Wait some time, when electrumx sync with PACd and
 starts listen on client ports. It can be seen on `/data/log/current`.

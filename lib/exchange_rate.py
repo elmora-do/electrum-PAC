@@ -41,14 +41,14 @@ class ExchangeBase(PrintError):
         # APIs must have https
         url = ''.join(['https://', site, get_string])
         response = requests.request('GET', url, headers={
-            'User-Agent': 'Electrum-DASH'
+            'User-Agent': 'Electrum-PAC'
         })
         return response.json()
 
     def get_csv(self, site, get_string):
         url = ''.join(['https://', site, get_string])
         response = requests.request('GET', url, headers={
-            'User-Agent': 'Electrum-DASH'
+            'User-Agent': 'Electrum-PAC'
         })
         reader = csv.DictReader(response.content.split('\n'))
         return list(reader)
@@ -101,7 +101,7 @@ class ExchangeBase(PrintError):
 class Bittrex(ExchangeBase):
     def get_rates(self, ccy):
         json = self.get_json('bittrex.com',
-                             '/api/v1.1/public/getticker?market=BTC-DASH')
+                             '/api/v1.1/public/getticker?market=BTC-PAC')
         quote_currencies = {}
         if not json.get('success', False):
             return quote_currencies
@@ -114,14 +114,14 @@ class Poloniex(ExchangeBase):
     def get_rates(self, ccy):
         json = self.get_json('poloniex.com', '/public?command=returnTicker')
         quote_currencies = {}
-        dash_ticker = json.get('BTC_DASH')
-        quote_currencies['BTC'] = Decimal(dash_ticker['last'])
+        PAC_ticker = json.get('BTC_PAC')
+        quote_currencies['BTC'] = Decimal(PAC_ticker['last'])
         return quote_currencies
 
 
 class CoinMarketCap(ExchangeBase):
     def get_rates(self, ccy):
-        json = self.get_json('api.coinmarketcap.com', '/v1/ticker/dash/')
+        json = self.get_json('api.coinmarketcap.com', '/v1/ticker/PAC/')
         quote_currencies = {}
         if not isinstance(json, list):
             return quote_currencies

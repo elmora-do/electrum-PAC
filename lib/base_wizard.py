@@ -80,7 +80,7 @@ class BaseWizard(object):
         wallet_kinds = [
             ('standard',  _("Standard wallet")),
             ('multisig',  _("Multi-signature wallet")),
-            ('imported',  _("Watch Dash addresses")),
+            ('imported',  _("Watch PAC addresses")),
         ]
         choices = [pair for pair in wallet_kinds if pair[0] in wallet_types]
         self.choice_dialog(title=title, message=message, choices=choices, run_next=self.on_wallet_type)
@@ -129,8 +129,8 @@ class BaseWizard(object):
 
     def import_addresses(self):
         v = keystore.is_address_list
-        title = _("Import Dash Addresses")
-        message = _("Enter a list of Dash addresses. This will create a watching-only wallet.")
+        title = _("Import PAC Addresses")
+        message = _("Enter a list of PAC addresses. This will create a watching-only wallet.")
         self.add_xpub_dialog(title=title, message=message, run_next=self.on_import_addresses, is_valid=v)
 
     def on_import_addresses(self, text):
@@ -146,7 +146,7 @@ class BaseWizard(object):
             title = _("Create keystore from keys")
             message = ' '.join([
                 _("To create a watching-only wallet, please enter your master public key (xpub)."),
-                _("To create a spending wallet, please enter a master private key (xprv), or a list of Dash private keys.")
+                _("To create a spending wallet, please enter a master private key (xprv), or a list of PAC private keys.")
             ])
             self.add_xpub_dialog(title=title, message=message, run_next=self.on_restore_from_key, is_valid=v)
         else:
@@ -373,5 +373,5 @@ class BaseWizard(object):
             self.wallet.synchronize()
             self.wallet.storage.write()
             self.terminate()
-        msg = _("Electrum-DASH is generating your addresses, please wait.")
+        msg = _("Electrum-PAC is generating your addresses, please wait.")
         self.waiting_dialog(task, msg)

@@ -12,7 +12,7 @@ import argparse
 version = imp.load_source('version', 'lib/version.py')
 
 if sys.version_info[:3] < (2, 7, 0):
-    sys.exit("Error: Electrum-DASH requires Python version >= 2.7.0...")
+    sys.exit("Error: Electrum-PAC requires Python version >= 2.7.0...")
 
 data_files = []
 
@@ -28,12 +28,12 @@ if platform.system() in ['Linux', 'FreeBSD', 'DragonFly']:
         else:
             usr_share = os.path.expanduser('~/.local/share')
     data_files += [
-        (os.path.join(usr_share, 'applications/'), ['electrum-dash.desktop']),
-        (os.path.join(usr_share, 'pixmaps/'), ['icons/electrum-dash.png'])
+        (os.path.join(usr_share, 'applications/'), ['electrum-PAC.desktop']),
+        (os.path.join(usr_share, 'pixmaps/'), ['icons/electrum-PAC.png'])
     ]
 
 setup(
-    name="Electrum-DASH",
+    name="Electrum-PAC",
     version=version.ELECTRUM_VERSION,
     install_requires=[
         'pyaes',
@@ -53,39 +53,39 @@ setup(
         'git+https://github.com/electrum-dash/python-trezor@v0.6.13#egg=trezor',
     ],
     packages=[
-        'electrum_dash',
-        'electrum_dash_gui',
-        'electrum_dash_gui.qt',
-        'electrum_dash_plugins',
-        'electrum_dash_plugins.audio_modem',
-        'electrum_dash_plugins.cosigner_pool',
-        'electrum_dash_plugins.email_requests',
-        'electrum_dash_plugins.hw_wallet',
-        'electrum_dash_plugins.keepkey',
-        'electrum_dash_plugins.labels',
-        'electrum_dash_plugins.ledger',
-        'electrum_dash_plugins.trezor',
-        'electrum_dash_plugins.digitalbitbox',
-        'electrum_dash_plugins.virtualkeyboard',
+        'electrum_PAC',
+        'electrum_PAC_gui',
+        'electrum_PAC_gui.qt',
+        'electrum_PAC_plugins',
+        'electrum_PAC_plugins.audio_modem',
+        'electrum_PAC_plugins.cosigner_pool',
+        'electrum_PAC_plugins.email_requests',
+        'electrum_PAC_plugins.hw_wallet',
+        'electrum_PAC_plugins.keepkey',
+        'electrum_PAC_plugins.labels',
+        'electrum_PAC_plugins.ledger',
+        'electrum_PAC_plugins.trezor',
+        'electrum_PAC_plugins.digitalbitbox',
+        'electrum_PAC_plugins.virtualkeyboard',
     ],
     package_dir={
-        'electrum_dash': 'lib',
-        'electrum_dash_gui': 'gui',
-        'electrum_dash_plugins': 'plugins',
+        'electrum_PAC': 'lib',
+        'electrum_PAC_gui': 'gui',
+        'electrum_PAC_plugins': 'plugins',
     },
     package_data={
-        'electrum_dash': [
+        'electrum_PAC': [
             'currencies.json',
             'www/index.html',
             'wordlist/*.txt',
             'locale/*/LC_MESSAGES/electrum.mo',
         ]
     },
-    scripts=['electrum-dash'],
+    scripts=['electrum-PAC'],
     data_files=data_files,
-    description="Lightweight Dashpay Wallet",
+    description="Lightweight PAC Wallet",
     author="akhavr",
     license="MIT License",
-    url="https://electrum-dash.org",
-    long_description="""Lightweight Dashpay Wallet"""
+    url="https://paccoin.net",
+    long_description="""Lightweight PAC Wallet"""
 )

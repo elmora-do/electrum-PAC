@@ -25,11 +25,11 @@
 
 import webbrowser
 
-from electrum_dash.i18n import _
-from electrum_dash.bitcoin import is_address
-from electrum_dash.util import block_explorer_URL, format_satoshis, format_time, age
-from electrum_dash.plugins import run_hook
-from electrum_dash.paymentrequest import PR_UNPAID, PR_PAID, PR_UNKNOWN, PR_EXPIRED
+from electrum_PAC.i18n import _
+from electrum_PAC.bitcoin import is_address
+from electrum_PAC.util import block_explorer_URL, format_satoshis, format_time, age
+from electrum_PAC.plugins import run_hook
+from electrum_PAC.paymentrequest import PR_UNPAID, PR_PAID, PR_UNKNOWN, PR_EXPIRED
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from util import MyTreeWidget, pr_tooltips, pr_icons

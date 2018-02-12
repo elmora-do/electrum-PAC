@@ -1,0 +1,17 @@
+# If you want electrum-PAC to appear in a linux app launcher ("start menu"), install this by doing:
+# sudo desktop-file-install electrum_PAC.desktop
+
+[Desktop Entry]
+Comment=Lightweight PAC Client
+Exec=electrum-PAC %u
+GenericName[en_US]=Electrum-PAC
+GenericName=Electrum-PAC
+Icon=electrum-PAC
+Name[en_US]=Electrum PAC Wallet
+Name=Electrum PAC Wallet
+Categories=Network;
+StartupNotify=false
+Terminal=false
+Type=Application
+MimeType=x-scheme-handler/PAC;
+

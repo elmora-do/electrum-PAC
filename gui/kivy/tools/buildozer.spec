@@ -1,13 +1,13 @@
 [app]
 
 # (str) Title of your application
-title = Electrum-DASH
+title = Electrum-PAC
 
 # (str) Package name
-package.name = Electrum-DASH
+package.name = Electrum-PAC
 
 # (str) Package domain (needed for android/ios packaging)
-package.domain = org.electrum_dash.electrum_dash_develop
+package.domain = org.electrum_PAC.electrum_PAC_develop
 
 # (str) Source code where the main.py live
 source.dir = .

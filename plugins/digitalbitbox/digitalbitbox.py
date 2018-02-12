@@ -4,12 +4,12 @@
 #
 
 try:
-    import electrum_dash
-    from electrum_dash.bitcoin import TYPE_ADDRESS, var_int, msg_magic, Hash, verify_message, pubkey_from_signature, point_to_ser, public_key_to_p2pkh, EncodeAES, DecodeAES, MyVerifyingKey
-    from electrum_dash.i18n import _
-    from electrum_dash.keystore import Hardware_KeyStore
+    import electrum_PAC
+    from electrum_PAC.bitcoin import TYPE_ADDRESS, var_int, msg_magic, Hash, verify_message, pubkey_from_signature, point_to_ser, public_key_to_p2pkh, EncodeAES, DecodeAES, MyVerifyingKey
+    from electrum_PAC.i18n import _
+    from electrum_PAC.keystore import Hardware_KeyStore
     from ..hw_wallet import HW_PluginBase
-    from electrum_dash.util import print_error
+    from electrum_PAC.util import print_error
 
     import time
     import hid

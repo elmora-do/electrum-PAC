@@ -36,15 +36,15 @@ hiddenimports = [
 
 datas = [
     ('packages/requests/cacert.pem', 'packages/requests'),
-    ('lib/currencies.json', 'electrum_dash'),
-    ('lib/wordlist', 'electrum_dash/wordlist'),
+    ('lib/currencies.json', 'electrum_PAC'),
+    ('lib/wordlist', 'electrum_PAC/wordlist'),
 ]
 
 # https://github.com/pyinstaller/pyinstaller/wiki/Recipe-remove-tkinter-tcl
 sys.modules['FixTk'] = None
 excludes = ['FixTk', 'tcl', 'tk', '_tkinter', 'tkinter', 'Tkinter']
 
-a = Analysis(['electrum-dash'],
+a = Analysis(['electrum-PAC'],
              pathex=['plugins'],
              hiddenimports=hiddenimports,
              datas=datas,
@@ -57,14 +57,14 @@ for d in a.datas:
         a.datas.remove(d)
         break
 
-# Add TOC to electrum_dash, electrum_dash_gui, electrum_dash_plugins
+# Add TOC to electrum_PAC, electrum_PAC_gui, electrum_PAC_plugins
 for p in sorted(a.pure):
     if p[0].startswith('lib') and p[2] == 'PYMODULE':
-        a.pure += [('electrum_dash%s' % p[0][3:] , p[1], p[2])]
+        a.pure += [('electrum_PAC%s' % p[0][3:] , p[1], p[2])]
     if p[0].startswith('gui') and p[2] == 'PYMODULE':
-        a.pure += [('electrum_dash_gui%s' % p[0][3:] , p[1], p[2])]
+        a.pure += [('electrum_PAC_gui%s' % p[0][3:] , p[1], p[2])]
     if p[0].startswith('plugins') and p[2] == 'PYMODULE':
-        a.pure += [('electrum_dash_plugins%s' % p[0][7:] , p[1], p[2])]
+        a.pure += [('electrum_PAC_plugins%s' % p[0][7:] , p[1], p[2])]
 
 pyz = PYZ(a.pure)
 
@@ -75,8 +75,8 @@ exe = EXE(pyz,
           strip=False,
           upx=False,
           console=False,
-          icon='icons/electrum-dash.ico',
-          name=os.path.join('build/electrum-dash/electrum-dash', cmdline_name))
+          icon='icons/electrum-PAC.ico',
+          name=os.path.join('build/electrum-PAC/electrum-PAC', cmdline_name))
 
 # trezorctl separate bin
 tctl_a = Analysis(['/usr/local/bin/trezorctl'],
@@ -93,17 +93,17 @@ tctl_exe = EXE(tctl_pyz,
            strip=False,
            upx=False,
            console=True,
-           name=os.path.join('build/electrum-dash/electrum-dash', 'trezorctl.bin'))
+           name=os.path.join('build/electrum-PAC/electrum-PAC', 'trezorctl.bin'))
 
 coll = COLLECT(exe, tctl_exe,
                a.binaries,
                a.datas,
                strip=False,
                upx=False,
-               name=os.path.join('dist', 'electrum-dash'))
+               name=os.path.join('dist', 'electrum-PAC'))
 
 app = BUNDLE(coll,
-             name=os.path.join('dist', 'Electrum-DASH.app'),
-             appname="Electrum-DASH",
-	         icon='electrum-dash.icns',
+             name=os.path.join('dist', 'Electrum-PAC.app'),
+             appname="Electrum-PAC",
+	         icon='electrum-PAC.icns',
              version = 'ELECTRUM_VERSION')

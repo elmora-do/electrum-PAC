@@ -36,22 +36,22 @@ from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 import PyQt4.QtCore as QtCore
 
-from electrum_dash.i18n import _, set_language
-from electrum_dash.plugins import run_hook
-from electrum_dash import SimpleConfig, Wallet, WalletStorage
-from electrum_dash.synchronizer import Synchronizer
-from electrum_dash.verifier import SPV
-from electrum_dash.util import DebugMem, UserCancelled, InvalidPassword
-from electrum_dash.wallet import Abstract_Wallet
+from electrum_PAC.i18n import _, set_language
+from electrum_PAC.plugins import run_hook
+from electrum_PAC import SimpleConfig, Wallet, WalletStorage
+from electrum_PAC.synchronizer import Synchronizer
+from electrum_PAC.verifier import SPV
+from electrum_PAC.util import DebugMem, UserCancelled, InvalidPassword
+from electrum_PAC.wallet import Abstract_Wallet
 from installwizard import InstallWizard, GoBack
-from dash_style import dash_stylesheet
+from PAC_style import PAC_stylesheet
 
 
 try:
     import icons_rc
 except Exception:
     print "Error: Could not find icons file."
-    print "Please run 'pyrcc4 icons.qrc -o gui/qt/icons_rc.py', and reinstall Electrum-DASH"
+    print "Please run 'pyrcc4 icons.qrc -o gui/qt/icons_rc.py', and reinstall Electrum-PAC"
     sys.exit(1)
 
 from util import *   # * needed for plugins
@@ -87,13 +87,13 @@ class ElectrumGui:
         self.efilter = OpenFileEventFilter(self.windows)
         self.app = QApplication(sys.argv)
         self.app.installEventFilter(self.efilter)
-        self.app.setStyleSheet(dash_stylesheet)
+        self.app.setStyleSheet(PAC_stylesheet)
         self.timer = Timer()
         self.nd = None
         # init tray
         self.dark_icon = self.config.get("dark_icon", False)
         self.tray = QSystemTrayIcon(self.tray_icon(), None)
-        self.tray.setToolTip('Electrum-DASH')
+        self.tray.setToolTip('Electrum-PAC')
         self.tray.activated.connect(self.tray_activated)
         self.build_tray_menu()
         self.tray.show()
@@ -110,7 +110,7 @@ class ElectrumGui:
             submenu.addAction(_("Close"), window.close)
         m.addAction(_("Dark/Light"), self.toggle_tray_icon)
         m.addSeparator()
-        m.addAction(_("Exit Electrum-DASH"), self.close)
+        m.addAction(_("Exit Electrum-PAC"), self.close)
         self.tray.setContextMenu(m)
 
     def tray_icon(self):

@@ -92,7 +92,7 @@ class Contacts(dict):
                 'type': 'openalias',
                 'validated': validated
             }
-        raise Exception("Invalid Dash address or alias", k)
+        raise Exception("Invalid PAC address or alias", k)
 
     def resolve_openalias(self, url):
         # support email-style addresses, per the OA standard

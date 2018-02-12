@@ -8,7 +8,7 @@ from util import user_dir, print_error, print_msg, print_stderr, PrintError
 
 from bitcoin import MAX_FEE_RATE, FEE_TARGETS
 
-SYSTEM_CONFIG_PATH = "/etc/electrum-dash.conf"
+SYSTEM_CONFIG_PATH = "/etc/electrum-PAC.conf"
 
 config = None
 
@@ -89,7 +89,7 @@ class SimpleConfig(PrintError):
                 raise BaseException('Dangling link: ' + path)
             os.makedirs(path)
 
-        self.print_error("electrum-dash directory", path)
+        self.print_error("electrum-PAC directory", path)
         return path
 
     def fixup_config_keys(self, config, keypairs):
@@ -248,13 +248,13 @@ class SimpleConfig(PrintError):
 
 
 def read_system_config(path=SYSTEM_CONFIG_PATH):
-    """Parse and return the system config settings in /etc/electrum-dash.conf."""
+    """Parse and return the system config settings in /etc/electrum-PAC.conf."""
     result = {}
     if os.path.exists(path):
         try:
             import ConfigParser
         except ImportError:
-            print "cannot parse electrum-dash.conf. please install ConfigParser"
+            print "cannot parse electrum-PAC.conf. please install ConfigParser"
             return
 
         p = ConfigParser.ConfigParser()
@@ -268,7 +268,7 @@ def read_system_config(path=SYSTEM_CONFIG_PATH):
     return result
 
 def read_user_config(path):
-    """Parse and store the user config settings in electrum-dash.conf into user_config[]."""
+    """Parse and store the user config settings in electrum-PAC.conf into user_config[]."""
     if not path:
         return {}
     config_path = os.path.join(path, "config")

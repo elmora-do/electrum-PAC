@@ -5,14 +5,14 @@ import threading
 from binascii import hexlify, unhexlify
 from functools import partial
 
-from electrum_dash.bitcoin import (bc_address_to_hash_160, xpub_from_pubkey,
+from electrum_PAC.bitcoin import (bc_address_to_hash_160, xpub_from_pubkey,
                               public_key_to_p2pkh, EncodeBase58Check,
                               TYPE_ADDRESS, TYPE_SCRIPT,
                               TESTNET, ADDRTYPE_P2PKH, ADDRTYPE_P2SH)
-from electrum_dash.i18n import _
-from electrum_dash.plugins import BasePlugin, hook
-from electrum_dash.transaction import deserialize, Transaction
-from electrum_dash.keystore import Hardware_KeyStore, is_xpubkey, parse_xpubkey
+from electrum_PAC.i18n import _
+from electrum_PAC.plugins import BasePlugin, hook
+from electrum_PAC.transaction import deserialize, Transaction
+from electrum_PAC.keystore import Hardware_KeyStore, is_xpubkey, parse_xpubkey
 
 from ..hw_wallet import HW_PluginBase
 
@@ -29,7 +29,7 @@ class TrezorCompatibleKeyStore(Hardware_KeyStore):
         return self.plugin.get_client(self, force_pair)
 
     def decrypt_message(self, sequence, message, password):
-        raise RuntimeError(_('Electrum-DASH and %s encryption and decryption are currently incompatible') % self.device)
+        raise RuntimeError(_('Electrum-PAC and %s encryption and decryption are currently incompatible') % self.device)
         client = self.get_client()
         address_path = self.get_derivation() + "/%d/%d"%sequence
         address_n = client.expand_path(address_path)
@@ -143,7 +143,7 @@ class TrezorCompatiblePlugin(HW_PluginBase):
         return client
 
     def get_coin_name(self):
-        return "Dash Testnet" if TESTNET else "Dash"
+        return "PAC Testnet" if TESTNET else "PAC"
 
     def initialize_device(self, device_id, wizard, handler):
         # Initialization method
