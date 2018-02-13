@@ -83,9 +83,9 @@ setup(
     },
     scripts=['electrum-PAC'],
     data_files=data_files,
-    description="Lightweight PAC Wallet",
+    description="Lightweight $PAC Wallet",
     author="akhavr",
     license="MIT License",
     url="https://paccoin.net",
-    long_description="""Lightweight PAC Wallet"""
+    long_description="""Lightweight $PAC Wallet"""
 )
