@@ -25,7 +25,7 @@ CCY_PRECISIONS = {'BHD': 3, 'BIF': 0, 'BYR': 0, 'CLF': 4, 'CLP': 0,
                   'BTC': 8}
 
 
-DEFAULT_EXCHANGE = 'Bittrex'
+DEFAULT_EXCHANGE = 'CoinMarketCap'
 DEFAULT_CCY = 'BTC'
 
 
@@ -96,28 +96,6 @@ class ExchangeBase(PrintError):
     def get_currencies(self):
         rates = self.get_rates('')
         return sorted([str(a) for (a, b) in rates.iteritems() if b is not None and len(a)==3])
-
-
-class Bittrex(ExchangeBase):
-    def get_rates(self, ccy):
-        json = self.get_json('bittrex.com',
-                             '/api/v1.1/public/getticker?market=BTC-PAC')
-        quote_currencies = {}
-        if not json.get('success', False):
-            return quote_currencies
-        last = Decimal(json['result']['Last'])
-        quote_currencies['BTC'] = last
-        return quote_currencies
-
-
-class Poloniex(ExchangeBase):
-    def get_rates(self, ccy):
-        json = self.get_json('poloniex.com', '/public?command=returnTicker')
-        quote_currencies = {}
-        PAC_ticker = json.get('BTC_PAC')
-        quote_currencies['BTC'] = Decimal(PAC_ticker['last'])
-        return quote_currencies
-
 
 class CoinMarketCap(ExchangeBase):
     def get_rates(self, ccy):
@@ -242,7 +220,7 @@ class FxThread(ThreadJob):
         self.on_quotes()
 
     def set_exchange(self, name):
-        class_ = globals().get(name, Bittrex)
+        class_ = globals().get(name, CoinMarketCap)
         self.print_error("using exchange", name)
         if self.config_exchange() != name:
             self.config.set_key('use_exchange', name, True)
