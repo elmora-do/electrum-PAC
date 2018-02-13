@@ -416,19 +416,23 @@ def time_difference(distance_in_time, include_seconds):
 
 
 mainnet_block_explorers = {
-    'PAC.org': ('https://explorer.PAC.org',
+    'japan.pacblockexplorer.com': ('http://japan.pacblockexplorer.com:3002/',
                        {'tx': 'tx', 'addr': 'address'}),
-    'Bchain.info': ('https://bchain.info/PAC',
+    'usa.pacblockexplorer.com': ('http://usa.pacblockexplorer.com:3002',
+                       {'tx': 'tx', 'addr': 'addr'}),
+    'eu.pacblockexplorer.com': ('http://eu.pacblockexplorer.com:3002',
+                       {'tx': 'tx', 'addr': 'addr'}),
+    'au.pacblockexplorer.com': ('http://au.pacblockexplorer.com:3002',
                        {'tx': 'tx', 'addr': 'addr'}),
     'system default': ('blockchain:',
-                       {'tx': 'tx', 'addr': 'address'}),
+                        {'tx': 'tx', 'addr': 'address'}),
 }
 
 testnet_block_explorers = {
-    'PAC.org': ('https://test.explorer.PAC.org',
-                       {'tx': 'tx', 'addr': 'address'}),
-    'system default': ('blockchain:',
-                       {'tx': 'tx', 'addr': 'address'}),
+#    'PAC.org': ('https://test.explorer.PAC.org',
+#                       {'tx': 'tx', 'addr': 'address'}),
+#    'system default': ('blockchain:',
+#                       {'tx': 'tx', 'addr': 'address'}),
 }
 
 def block_explorer_info():
@@ -436,7 +440,7 @@ def block_explorer_info():
     return testnet_block_explorers if bitcoin.TESTNET else mainnet_block_explorers
 
 def block_explorer(config):
-    return config.get('block_explorer', 'PAC.org')
+    return config.get('block_explorer', 'usa.pacblockexplorer.com')
 
 def block_explorer_tuple(config):
     return block_explorer_info().get(block_explorer(config))
@@ -461,12 +465,12 @@ def parse_URI(uri, on_pr=None):
 
     if ':' not in uri:
         if not bitcoin.is_address(uri):
-            raise BaseException("Not a PAC address")
+            raise BaseException("Not a $PAC address")
         return {'address': uri}
 
     u = urlparse.urlparse(uri)
     if u.scheme != 'PAC':
-        raise BaseException("Not a PAC URI")
+        raise BaseException("Not a $PAC URI")
     address = u.path
 
     # python for android fails to parse query
@@ -483,7 +487,7 @@ def parse_URI(uri, on_pr=None):
     out = {k: v[0] for k, v in pq.items()}
     if address:
         if not bitcoin.is_address(address):
-            raise BaseException("Invalid PAC address:" + address)
+            raise BaseException("Invalid $PAC address:" + address)
         out['address'] = address
     if 'amount' in out:
         am = out['amount']
