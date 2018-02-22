@@ -40,15 +40,12 @@ import x11_hash
 
 
 # PAC and bip32, bip44 constants
-# https://github.com/PACCommunity/PAC/blob/master/src/chainparams.cpp
-# https://github.com/PACCommunity/PAC/ 0.11.0 Release notes for drkp/drkv/DRKP/DRKV
-# https://github.com/satoshilabs/slips/blob/master/slip-0044.md
 TESTNET = False
-ADDRTYPE_P2PKH = 76
-ADDRTYPE_P2SH = 16
-WIF = 204
-XPRV_HEADER = 0x0488ade4
-XPUB_HEADER = 0x0488b21e
+ADDRTYPE_P2PKH = 0x37
+ADDRTYPE_P2SH = 0x0A
+WIF = 0xef
+XPRV_HEADER = 0x0488ADE4
+XPUB_HEADER = 0x0488B21E
 HEADERS_URL = ''  # TODO headers bootstrap
 GENESIS = '00000354655ff039a51273fe61d3b493bd2897fe6c16f732dbc4ae19f04b789e'
 

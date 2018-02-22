@@ -52,7 +52,7 @@ DEFAULT_PORTS = {'t':'50001', 's':'50002'}
 #then gradually switch remaining nodes to e-x nodes
 
 DEFAULT_SERVERS = {
-    'electrum.PAC.siampm.com':DEFAULT_PORTS,  # thelazier
+    'electro-pac.paccoin.io':DEFAULT_PORTS,  # thelazier
     # cert verify failed 'electrum-drk.club':DEFAULT_PORTS,         # duffman
 }
 
