@@ -1571,6 +1571,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
     def create_utxo_tab(self):
         from utxo_list import UTXOList
         self.utxo_list = l = UTXOList(self)
+        l.setObjectName("coins_container")
         return self.create_list_tab(l)
 
     def create_contacts_tab(self):

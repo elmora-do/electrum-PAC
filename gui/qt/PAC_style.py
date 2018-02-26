@@ -57,7 +57,7 @@ stop: 0 #A5CFFA, stop: 1 #72B2F8);
 
 #balance_label
 {
-    color: #333;
+    color: #000;
 }
 
 #history
@@ -106,7 +106,7 @@ QGroupBox::title {
 }
 
 #main_window_nav_bar QTabBar{
-    color: #fff;
+    color: #000;
     border:0;
 }
 
@@ -123,8 +123,8 @@ QTabWidget#main_window_nav_bar::pane {
 }
 
 #main_window_nav_bar QTabBar::tab {
-    background-color:#1e75b4;
-    color:#fff;
+    background-color:#f8f6f6;
+    color:#000;
     min-height: 44px;
     padding-left:1em;
     padding-right:1em;
@@ -140,7 +140,7 @@ QTabWidget#main_window_nav_bar::pane {
 }
 
 #main_window_nav_bar QTabBar::tab:selected, #main_window_nav_bar QTabBar::tab:hover {
-    background-color:#0d436e;
+    background-color:#A59A9A;
     color:#fff;
 }
 
@@ -184,14 +184,14 @@ QLabel {
 
 /* Wallet Container */
 #main_window_container {
-    background: #1e75b4;
+    background: #f8f6f6;
     color: #fff;
 }
 
 
 /* History Container */
 #history_container {
-    border-top: 2px solid #FF0000;
+    border-top: 2px solid #A59A9A;
     margin-top: 0;
     background-color:#FF0000;
     background:qradialgradient(cx:0.5, cy:0.5, radius: 0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop: 1 rgba(246, 246, 246, 255));
@@ -200,7 +200,7 @@ QLabel {
 
 /* Send Container */
 #send_container {
-    border-top: 2px solid #FF0000;
+    border-top: 2px solid #A59A9A;
     margin-top: 0;
     background-color:#FF0000;
     background:qradialgradient(cx:0.5, cy:0.5, radius: 0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop: 1 rgba(246, 246, 246, 255));
@@ -214,7 +214,7 @@ QLabel {
 
 /* Receive Container */
 #receive_container {
-    border-top: 2px solid #FF0000;
+    border-top: 2px solid #A59A9A;
     margin-top: 0;
     background-color:#FF0000;
     background:qradialgradient(cx:0.5, cy:0.5, radius: 0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop: 1 rgba(246, 246, 246, 255));
@@ -228,15 +228,21 @@ QLabel {
 
 /* Addressses Container */
 #addresses_container {
-    border-top: 2px solid #FF0000;
+    border-top: 2px solid #A59A9A;
     margin-top: 0;
     background:qradialgradient(cx:0.5, cy:0.5, radius: 0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop: 1 rgba(246, 246, 246, 255));
+}
+
+/* Coins Container */
+#coins_container {
+    border-top: 2px solid #A59A9A;
+    margin-top: 0;
 }
 
 
 /* Contacts Container */
 #contacts_container {
-    border-top: 2px solid #FF0000;
+    border-top: 2px solid #A59A9A;
     margin-top: 0;
     background:qradialgradient(cx:0.5, cy:0.5, radius: 0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop: 1 rgba(233, 233, 233, 255));
 }
@@ -244,14 +250,14 @@ QLabel {
 
 /* Console Container */
 #console_container {
-    border-top: 2px solid #FF0000;
+    border-top: 2px solid #A59A9A;
     margin-top: 0;
 }
 
 
 /* Balance Label */
 #main_window_balance {
-    color:#ffffff;
+    color:#000;
     font-weight:bold;
     margin-left:10px;
 }
@@ -327,7 +333,7 @@ QLabel { /* Base Text Size & Color */
 /* 5. Buttons, Spinners, Dropdown */
 
 QPushButton { /* Global Button Style */
-    background-color:qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: .01 #64ACD2, stop: .1 #3398CC, stop: .95 #3398CC, stop: 1 #1D80B5);
+    background-color: #A59A9A;
     border:0;
     border-radius:3px;
     color:#ffffff;
@@ -341,7 +347,8 @@ QPushButton { /* Global Button Style */
 }
 
 QPushButton:hover {
-    background-color:qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: .01 #64ACD2, stop: .1 #46AADE, stop: .95 #46AADE, stop: 1 #1D80B5);
+    background-color: #c3bbbb;
+    color: #000;
 }
 
 QPushButton:focus {
@@ -355,9 +362,8 @@ QPushButton:pressed {
 
 QPushButton:disabled
 {
-    color: #D3E8FE;
-    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-stop: 0 #A5CFFA, stop: 1 #72B2F8);
+    color: #fff;
+    background-color: #e7e4e4;
 }
 
 QComboBox { /* Dropdown Menus */
@@ -465,15 +471,15 @@ QHeaderView { /* Table Header */
 
 QHeaderView::section { /* Table Header Sections */
     qproperty-alignment:center;
-    background-color:qlineargradient(x1: 0, y1: 0, x2: 0, y2: 0.25, stop: 0 #64A3D0, stop: 1 #68A8D6);
-    color:#fff;
+    background-color:qlineargradient(x1: 0, y1: 0, x2: 0, y2: 0.25, stop: 0 #CCC7C7, stop: 1 #CCC7C7);
+    color:#000;
     min-width: 50px;
     min-height:25px;
     font-weight:bold;
     font-size:11px;
     outline:0;
     border:0;
-    border-right:1px solid #56ABD8;
+    border-right:1px solid #F8F6F6;
     padding-left:2px;
     padding-right:10px;
     padding-top:1px;
