@@ -1,13 +1,13 @@
 [app]
 
 # (str) Title of your application
-title = Electrum-PAC
+title = ElectrumPAC
 
 # (str) Package name
-package.name = Electrum-PAC
+package.name = ElectrumPAC
 
 # (str) Package domain (needed for android/ios packaging)
-package.domain = org.electrum_PAC.electrum_PAC_develop
+package.domain = org.electrum_pac.electrum_pac_develop
 
 # (str) Source code where the main.py live
 source.dir = .
@@ -24,11 +24,11 @@ source.exclude_dirs = bin, build, dist, contrib, gui/qt, gui/kivy/tools, gui/kiv
 source.exclude_patterns = Makefile,setup*
 
 # (str) Application versioning (method 1)
-version.regex = version_apk = '(.*)'
-version.filename = %(source.dir)s/contrib/versions.py
+#version.regex = version_apk = '(.*)'
+#version.filename = %(source.dir)s/contrib/versions.py
 
 # (str) Application versioning (method 2)
-#version = 1.9.8
+version = 1.9.8
 
 # (list) Application requirements
 requirements = hostpython2, android, openssl, pycrypto, pil, plyer, kivy==master
@@ -104,7 +104,7 @@ android.private_storage = True
 android.manifest.intent_filters = gui/kivy/tools/bitcoin_intent.xml
 
 # (list) Android additionnal libraries to copy into libs/armeabi
-#android.add_libs_armeabi = lib/android/*.so
+android.add_libs_armeabi = lib/android/*.so
 
 # (bool) Indicate whether the screen should stay on
 # Don't forget to add the WAKE_LOCK permission if you set this to True

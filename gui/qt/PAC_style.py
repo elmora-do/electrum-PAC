@@ -101,21 +101,39 @@ QGroupBox::title {
 /**********************/
 /* 1. Navigation Bar */
 
+#main_window_topbar{
+    background-color: #000;
+    position: absoulte;
+}
+
+#main_window_topbar #logo_image{
+    background: url(:/icons/top_bar_logo.png) no-repeat left top;
+}
+
+#main_window_topbar QPushButton{
+    background-color: #000;
+    width: 10px;
+}
+
+#main_window_topbar QPushButton:hover{
+    background-color:#333333;
+}
+
 #main_window_nav_bar {
     border:0;
+    position: absolute;
 }
 
 #main_window_nav_bar QTabBar{
-    color: #000;
+    color: #fff;
     border:0;
 }
 
 #main_window_nav_bar QTabBar {
-    background: url(:/icons/navlogo.png) no-repeat left top;
 }
 
 QTabWidget#main_window_nav_bar::tab-bar {
-    alignment: left;
+    alignment: center;
 }
 
 QTabWidget#main_window_nav_bar::pane {
@@ -123,16 +141,17 @@ QTabWidget#main_window_nav_bar::pane {
 }
 
 #main_window_nav_bar QTabBar::tab {
-    background-color:#f8f6f6;
-    color:#000;
-    min-height: 44px;
+    background-color:#000;
+    color:#fff;
+    min-height: 50px;
+    min-width: 40px;
     padding-left:1em;
     padding-right:1em;
+    padding-bottom:1em;
 }
 
 #main_window_nav_bar QTabBar::tab:first {
     border-left: 0 solid #fff;
-    margin-left:200px;
 }
 
 #main_window_nav_bar QTabBar::tab:last {
@@ -140,10 +159,8 @@ QTabWidget#main_window_nav_bar::pane {
 }
 
 #main_window_nav_bar QTabBar::tab:selected, #main_window_nav_bar QTabBar::tab:hover {
-    background-color:#A59A9A;
-    color:#fff;
+    background-color:#333333;
 }
-
 
 /**********************/
 /* 2. Editable Fields and Labels */
@@ -185,25 +202,44 @@ QLabel {
 /* Wallet Container */
 #main_window_container {
     background: #f8f6f6;
-    color: #fff;
+    color: #000;
 }
 
+#central_widget {
+    background-color:#000;
+}
+
+#section_title{
+    font-weight:bold;
+    font-size: 40px;
+}
+
+#sub_section_title{
+    font-size: 25px;
+}
+
+#sub_section_content{
+    background-color:#fff;
+    min-height: 50px;
+    border-radius: 5px;
+    border-top: 1px solid #e6e6e6;
+    border-left: 1px solid #e6e6e6;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+QWidget#home_container{
+    border-image: url(:/icons/background.png) 300 0 100 0 stretch stretch;
+}
 
 /* History Container */
 #history_container {
-    border-top: 2px solid #A59A9A;
-    margin-top: 0;
-    background-color:#FF0000;
-    background:qradialgradient(cx:0.5, cy:0.5, radius: 0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop: 1 rgba(246, 246, 246, 255));
 }
-
 
 /* Send Container */
 #send_container {
-    border-top: 2px solid #A59A9A;
-    margin-top: 0;
-    background-color:#FF0000;
-    background:qradialgradient(cx:0.5, cy:0.5, radius: 0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop: 1 rgba(246, 246, 246, 255));
 }
 
 #send_container QLabel {
@@ -211,13 +247,8 @@ QLabel {
     min-width:140px;
 }
 
-
 /* Receive Container */
 #receive_container {
-    border-top: 2px solid #A59A9A;
-    margin-top: 0;
-    background-color:#FF0000;
-    background:qradialgradient(cx:0.5, cy:0.5, radius: 0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop: 1 rgba(246, 246, 246, 255));
 }
 
 #receive_container QLabel {
@@ -225,41 +256,26 @@ QLabel {
     min-width:142px;
 }
 
-
 /* Addressses Container */
 #addresses_container {
-    border-top: 2px solid #A59A9A;
-    margin-top: 0;
-    background:qradialgradient(cx:0.5, cy:0.5, radius: 0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop: 1 rgba(246, 246, 246, 255));
 }
 
 /* Coins Container */
 #coins_container {
-    border-top: 2px solid #A59A9A;
-    margin-top: 0;
 }
-
 
 /* Contacts Container */
 #contacts_container {
-    border-top: 2px solid #A59A9A;
-    margin-top: 0;
-    background:qradialgradient(cx:0.5, cy:0.5, radius: 0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop: 1 rgba(233, 233, 233, 255));
 }
-
 
 /* Console Container */
 #console_container {
-    border-top: 2px solid #A59A9A;
-    margin-top: 0;
 }
-
 
 /* Balance Label */
 #main_window_balance {
-    color:#000;
+    color:#fff;
     font-weight:bold;
-    margin-left:10px;
 }
 
 
