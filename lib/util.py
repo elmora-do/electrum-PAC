@@ -36,7 +36,7 @@ import threading
 import hmac
 from i18n import _
 
-base_units = {'PAC':8, 'mPAC':5, 'uPAC':2}
+base_units = {'$PAC':8, 'm$PAC':5, 'u$PAC':2}
 fee_levels = [_('Within 25 blocks'), _('Within 10 blocks'), _('Within 5 blocks'), _('Within 2 blocks'), _('In the next block')]
 
 def normalize_version(v):
