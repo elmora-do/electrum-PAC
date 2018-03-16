@@ -41,9 +41,9 @@ import x11_hash
 
 # PAC and bip32, bip44 constants
 TESTNET = False
-ADDRTYPE_P2PKH = 0x37
-ADDRTYPE_P2SH = 0x0A
-WIF = 0xef
+ADDRTYPE_P2PKH = 55
+ADDRTYPE_P2SH = 10
+WIF = 204
 XPRV_HEADER = 0x0488ADE4
 XPUB_HEADER = 0x0488B21E
 HEADERS_URL = ''  # TODO headers bootstrap
@@ -56,8 +56,8 @@ def set_testnet():
     global TESTNET, HEADERS_URL
     global GENESIS
     TESTNET = True
-    ADDRTYPE_P2PKH = 140
-    ADDRTYPE_P2SH = 19
+    ADDRTYPE_P2PKH = 120
+    ADDRTYPE_P2SH = 14
     WIF = 239
     XPRV_HEADER = 0x04358394
     XPUB_HEADER = 0x043587cf
