@@ -213,6 +213,7 @@ QLabel {
 #section_title{
     font-weight:bold;
     font-size: 40px;
+    text-transform: uppercase;
 }
 
 #sub_section_title{
@@ -232,14 +233,16 @@ QLabel {
 }
 
 /*,
-QWidget#history_container,
 QWidget#send_container,
 QWidget#receive_container,
+*/
+
+QWidget#home_container,
 QWidget#addresses_container,
 QWidget#coins_container,
 QWidget#contacts_container,
-QWidget#console_container*/
-QWidget#home_container {
+QWidget#history_container,
+QWidget#console_container {
     border-image: url(:/icons/background.png) 300 0 100 0 stretch stretch;
 }
 

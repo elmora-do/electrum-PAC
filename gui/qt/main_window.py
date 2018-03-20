@@ -899,8 +899,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
         from history_list import HistoryList
         self.history_list = l = HistoryList(self)
         l.searchable_list = l
-        l.setObjectName("history_container")
-        return l
+        return self.create_list_tab("history", l)
 
     def create_dashboard_history_tab(self):
         from dashboard_history_list import DashboardHistoryList
@@ -1708,35 +1707,38 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
         self.utxo_list.update()
         self.update_fee()
 
-    def create_list_tab(self, l):
-        w = QWidget()
-        w.searchable_list = l
-        vbox = QVBoxLayout()
-        w.setLayout(vbox)
-        vbox.setMargin(0)
-        vbox.setSpacing(0)
-        vbox.addWidget(l)
-        buttons = QWidget()
-        vbox.addWidget(buttons)
-        return w
+    def create_list_tab(self, section_title, section_content):
+        list_widget = QWidget()
+        list_widget.setObjectName(section_title.lower() + "_container")
+        list_widget_layout = QVBoxLayout(list_widget)
+        list_widget_layout.setMargin(50)
+        #Section title
+        section_title_label = QLabel(list_widget)
+        section_title_label.setObjectName("section_title")
+        section_title_label.setText(section_title)
+        section_title_label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+        #Section content
+        section_content.setObjectName("sub_section_content")
+        section_content.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        #Layout
+        list_widget_layout.addWidget(section_title_label)
+        list_widget_layout.addWidget(section_content)
+        return list_widget
 
     def create_addresses_tab(self):
         from address_list import AddressList
         self.address_list = l = AddressList(self)
-        l.setObjectName("addresses_container")
-        return self.create_list_tab(l)
+        return self.create_list_tab("addresses", l)
 
     def create_utxo_tab(self):
         from utxo_list import UTXOList
         self.utxo_list = l = UTXOList(self)
-        l.setObjectName("coins_container")
-        return self.create_list_tab(l)
+        return self.create_list_tab("coins", l)
 
     def create_contacts_tab(self):
         from contact_list import ContactList
         self.contact_list = l = ContactList(self)
-        l.setObjectName("contacts_container")
-        return self.create_list_tab(l)
+        return self.create_list_tab("contacts", l)
 
     def create_proposals_tab(self):
         from masternode_budget_widgets import ProposalsTab
@@ -1868,9 +1870,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
     def create_console_tab(self):
         from console import Console
         self.console = console = Console()
-        console.setObjectName("console_container")
-        return console
-
+        return self.create_list_tab("Console", self.console)
 
     def update_console(self):
         console = self.console
@@ -1911,11 +1911,16 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
         self.settings_button = settings_button = StatusBarButton(QIcon(":icons/preferences.png"), _("Preferences"), self.settings_dialog )
         self.seed_button = seed_button = StatusBarButton(QIcon(":icons/seed.png"), _("Seed"), self.show_seed_dialog )
         self.status_button = status_button = StatusBarButton(QIcon(":icons/status_connected.png"), _("Network"), lambda: self.gui_object.show_network_dialog(self) )
+
+        self.search_box = QLineEdit()
+        self.search_box.textChanged.connect(self.do_search)
+        self.search_box.hide()
         
         self.top_bar_layout = top_bar_layout = QHBoxLayout(top_bar);
         top_bar_layout.setObjectName("top_bar_layout")
         top_bar_layout.addWidget(menu_button)
         top_bar_layout.addWidget(logo_label)
+        top_bar_layout.addWidget(self.search_box)
         top_bar_layout.addWidget(balance_label)
         top_bar_layout.addWidget(password_button)
         top_bar_layout.addWidget(settings_button)
