@@ -70,6 +70,7 @@ class DashboardHistoryList(MyTreeWidget):
     @profiler
     def on_update(self):
         self.wallet = self.parent.wallet
+        #TODO retreive only some of the transactions, let's say only 15
         h = self.wallet.get_history(self.get_domain())
         item = self.currentItem()
         current_tx = item.data(0, Qt.UserRole).toString() if item else None

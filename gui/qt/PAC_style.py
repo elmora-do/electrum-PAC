@@ -199,7 +199,8 @@ QLabel {
 /* 3. Containers */
 
 
-/* Wallet Container */
+/* Dashboard Container */
+
 #main_window_container {
     background: #f8f6f6;
     color: #000;
@@ -230,8 +231,39 @@ QLabel {
     padding-right: 25px;
 }
 
-QWidget#home_container{
+/*,
+QWidget#history_container,
+QWidget#send_container,
+QWidget#receive_container,
+QWidget#addresses_container,
+QWidget#coins_container,
+QWidget#contacts_container,
+QWidget#console_container*/
+QWidget#home_container {
     border-image: url(:/icons/background.png) 300 0 100 0 stretch stretch;
+}
+
+QWidget#home_container #sub_section_content QLabel{
+    font-size: 25px;
+}
+
+QWidget#home_container #sub_section_content QLabel#fiat_balance_label{
+    font-weight:bold;
+}
+
+QWidget#home_container #sub_section_content QLabel#alt_balance_label{
+    font-size: 20px !important;
+}
+
+QTreeWidget QHeaderView::section{
+    background-color: #fff;
+    color: #000;
+    text-transform: uppercase;
+    font-size: 16px;
+}
+
+QTreeWidget QHeaderView::section:horizontal{
+    border-bottom: 3px solid #fef000;
 }
 
 /* History Container */
