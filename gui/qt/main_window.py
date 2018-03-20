@@ -1165,6 +1165,26 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
             self.qr_window.set_content(addr, amount, message, uri)
 
     def create_send_tab(self):
+
+        send_widget = QWidget()
+        send_widget.setObjectName("send_container")
+        send_widget_layout = QVBoxLayout(send_widget)
+        send_widget_layout.setMargin(50)
+        
+        #Section title
+        section_title = QLabel(send_widget)
+        section_title.setObjectName("section_title")
+        section_title.setText(_("Send"))
+        section_title.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+
+        #Section content
+        section_content = QWidget(send_widget)
+        section_content.setObjectName("section_content")
+        content_layout = QVBoxLayout(section_content)
+        section_content.setLayout(content_layout)
+
+
+        ###
         # A 4-column grid layout.  All the stretch is in the last column.
         # The exchange rate plugin adds a fiat widget in column 2
         self.send_grid = grid = QGridLayout()
@@ -1177,6 +1197,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
         msg = _('Recipient of the funds.') + '\n\n'\
               + _('You may enter a $PAC address, a label from your list of contacts (a list of completions will be proposed), or an alias (email-like address that forwards to a $PAC address)')
         payto_label = HelpLabel(_('Pay to'), msg)
+        payto_label.setObjectName("section_column")
         grid.addWidget(payto_label, 1, 0)
         grid.addWidget(self.payto_e, 1, 1, 1, -1)
 
@@ -1302,17 +1323,20 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
         vbox0.addLayout(grid)
         hbox = QHBoxLayout()
         hbox.addLayout(vbox0)
-        w = QWidget()
-        w.setObjectName("send_container")
-        vbox = QVBoxLayout(w)
-        vbox.addLayout(hbox)
-        vbox.addStretch(1)
-        vbox.addWidget(self.invoices_label)
-        vbox.addWidget(self.invoice_list)
-        vbox.setStretchFactor(self.invoice_list, 1000)
-        w.searchable_list = self.invoice_list
+        content_layout.addLayout(hbox)
+        content_layout.addStretch(1)
+        content_layout.addWidget(self.invoices_label)
+        content_layout.addWidget(self.invoice_list)
+        content_layout.setStretchFactor(self.invoice_list, 1000)
+        section_content.searchable_list = self.invoice_list
         run_hook('create_send_tab', grid)
-        return w
+        ###
+
+        #Main layout
+        send_widget_layout.addWidget(section_title)
+        send_widget_layout.addWidget(section_content)  
+
+        return send_widget      
 
     def spend_max(self):
         self.is_max = True

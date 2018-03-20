@@ -186,7 +186,7 @@ class PayToEdit(ScanQRTextEdit):
 
     def update_size(self):
         docHeight = self.document().size().height()
-        h = docHeight*17 + 11
+        h = docHeight*20 + 22
         if self.heightMin <= h <= self.heightMax:
             self.setMinimumHeight(h)
             self.setMaximumHeight(h)

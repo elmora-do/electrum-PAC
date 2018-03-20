@@ -108,14 +108,12 @@ class HelpLabel(QLabel):
         QMessageBox.information(self, 'Help', self.help_text, 'OK')
 
     def enterEvent(self, event):
-        self.font.setUnderline(True)
-        self.setFont(self.font)
+        self.setStyleSheet("text-decoration: underline");
         self.app.setOverrideCursor(QCursor(Qt.PointingHandCursor))
         return QLabel.enterEvent(self, event)
 
     def leaveEvent(self, event):
-        self.font.setUnderline(False)
-        self.setFont(self.font)
+        self.setStyleSheet("");
         self.app.setOverrideCursor(QCursor(Qt.ArrowCursor))
         return QLabel.leaveEvent(self, event)
 

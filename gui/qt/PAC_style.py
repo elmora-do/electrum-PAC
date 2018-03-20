@@ -174,23 +174,28 @@ QCheckBox:hover {
     background-color:transparent;
 }
 
-QValidatedLineEdit, QLineEdit, PayToEdit { /* Text Entry Fields */
-    border: 1px solid #82C3E6;
-    min-height:25px;
+QValidatedLineEdit, QLineEdit, PayToEdit, QPlainTextEdit { /* Text Entry Fields */
+    border: 0px;
+    height:40px;
     outline:0;
-    padding:3px;
-    background-color:#fcfcfc;
-    color: #333;
+    background-color:#fff;
+    color: #000;
+    border-radius: 5px;
+    font-size: 20px;
+    padding-left: 10px;
+}
+
+PayToEdit{
+    padding-top: 5px;
 }
 
 ButtonsLineEdit {
-    color: #333;
-    min-height:25px;
+    color: #000;
     background: #fff;
 }
 
 QLabel {
-    color: #333;
+    color: #000;
     min-height:25px;
 }
 
@@ -216,6 +221,14 @@ QLabel {
     text-transform: uppercase;
 }
 
+#section_content > QLabel{
+    background-color:#fff;
+    font-size: 20px !important;
+    border-radius: 5px;
+    height: 40px;
+    padding-left: 10px;
+}
+
 #sub_section_title{
     font-size: 25px;
 }
@@ -232,16 +245,13 @@ QLabel {
     padding-right: 25px;
 }
 
-/*,
-QWidget#send_container,
-QWidget#receive_container,
-*/
-
 QWidget#home_container,
 QWidget#addresses_container,
 QWidget#coins_container,
 QWidget#contacts_container,
 QWidget#history_container,
+QWidget#send_container,
+QWidget#receive_container,
 QWidget#console_container {
     border-image: url(:/icons/background.png) 300 0 100 0 stretch stretch;
 }
@@ -277,17 +287,15 @@ QTreeWidget QHeaderView::section:horizontal{
 #send_container {
 }
 
-#send_container QLabel {
-    margin-left:10px;
-    min-width:140px;
+#send_container  QLabel#section_column {
+    min-width:142px;
 }
 
 /* Receive Container */
 #receive_container {
 }
 
-#receive_container QLabel {
-    margin-left:10px;
+#receive_container QLabel#section_column {
     min-width:142px;
 }
 
@@ -374,9 +382,13 @@ QMessageBox {
     background-color:#F8F6F6;
 }
 
+QMessageBox > QLabel {
+    min-height: 70px;
+}
+
 
 QLabel { /* Base Text Size & Color */
-    color:#333333;
+    color:#000;
 }
 
 
