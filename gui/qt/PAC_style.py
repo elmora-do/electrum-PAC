@@ -397,11 +397,11 @@ QLabel { /* Base Text Size & Color */
 /* 5. Buttons, Spinners, Dropdown */
 
 QPushButton { /* Global Button Style */
-    background-color: #A59A9A;
+    background-color: #000;
     border:0;
     border-radius:3px;
     color:#ffffff;
-    /* font-size:12px; */
+    font-size: 18px;
     font-weight:bold;
     padding-left:25px;
     padding-right:25px;
@@ -411,7 +411,7 @@ QPushButton { /* Global Button Style */
 }
 
 QPushButton:hover {
-    background-color: #c3bbbb;
+    background-color: #fef000;
     color: #000;
 }
 
@@ -426,7 +426,7 @@ QPushButton:pressed {
 
 QPushButton:disabled
 {
-    color: #fff;
+    color: #000;
     background-color: #e7e4e4;
 }
 
