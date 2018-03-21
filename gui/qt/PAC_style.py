@@ -176,13 +176,10 @@ QCheckBox:hover {
 
 QValidatedLineEdit, QLineEdit, PayToEdit, QPlainTextEdit { /* Text Entry Fields */
     border: 0px;
-    height:40px;
     outline:0;
     background-color:#fff;
     color: #000;
     border-radius: 5px;
-    font-size: 20px;
-    padding-left: 10px;
 }
 
 PayToEdit{
@@ -199,29 +196,28 @@ QLabel {
     min-height:25px;
 }
 
-
 /**********************/
 /* 3. Containers */
 
 
 /* Dashboard Container */
 
-#main_window_container {
+QWidget#main_window_container {
     background: #f8f6f6;
     color: #000;
 }
 
-#central_widget {
+QWidget#central_widget {
     background-color:#000;
 }
 
-#section_title{
+QWidget#section_title{
     font-weight:bold;
     font-size: 40px;
     text-transform: uppercase;
 }
 
-#section_content > QLabel{
+QWidget#section_content > QLabel{
     background-color:#fff;
     font-size: 20px !important;
     border-radius: 5px;
@@ -229,11 +225,24 @@ QLabel {
     padding-left: 10px;
 }
 
+QWidget#section_content > QValidatedLineEdit, 
+QWidget#section_content > QLineEdit, 
+QWidget#section_content > PayToEdit, 
+QWidget#section_content > QPlainTextEdit { 
+    height:40px;
+    font-size: 20px;
+    padding-left: 10px;
+}
+
+QWidget#section_content > QComboBox {
+    font-size: 20px;
+}
+
 #sub_section_title{
     font-size: 25px;
 }
 
-#sub_section_content{
+QWidget#sub_section_content{
     background-color:#fff;
     min-height: 50px;
     border-radius: 5px;
@@ -256,11 +265,8 @@ QWidget#console_container {
     border-image: url(:/icons/background.png) 300 0 100 0 stretch stretch;
 }
 
-QWidget#home_container #sub_section_content QLabel{
-    font-size: 25px;
-}
-
 QWidget#home_container #sub_section_content QLabel#fiat_balance_label{
+    font-size: 25px;
     font-weight:bold;
 }
 
@@ -268,15 +274,13 @@ QWidget#home_container #sub_section_content QLabel#alt_balance_label{
     font-size: 20px !important;
 }
 
-QTreeWidget QHeaderView::section{
-    background-color: #fff;
-    color: #000;
-    text-transform: uppercase;
+QWidget#home_container QTreeWidget QHeaderView::section,
+QWidget#addresses_container QTreeWidget QHeaderView::section,
+QWidget#coins_container QTreeWidget QHeaderView::section,
+QWidget#contacts_container QTreeWidget QHeaderView::section,
+QWidget#history_container QTreeWidget QHeaderView::section,
+QWidget#receive_container  QTreeWidget QHeaderView::section{
     font-size: 16px;
-}
-
-QTreeWidget QHeaderView::section:horizontal{
-    border-bottom: 3px solid #fef000;
 }
 
 /* History Container */
@@ -436,7 +440,7 @@ QComboBox { /* Dropdown Menus */
     background:#fff;
     min-height:40px;
     color:#000;
-    font-size: 20px;
+    
 }
 
 QComboBox:checked {
@@ -665,6 +669,15 @@ QTreeWidget::item {
     color:#333;
 }
 
+QTreeWidget QHeaderView::section{
+    background-color: #fff;
+    color: #000;
+    text-transform: uppercase;
+}
+
+QTreeWidget QHeaderView::section:horizontal{
+    border-bottom: 3px solid #fef000;
+}
 
 /**********************/
 /* 9. Dialog Boxes */

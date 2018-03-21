@@ -128,7 +128,6 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
 
         #top bar widget
         self.create_top_bar()
-        #self.create_status_bar()
         self.need_update = threading.Event()
 
         self.decimal_point = config.get('decimal_point', 8)
@@ -804,10 +803,10 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
         history_content.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         ###Effects
         history_shadow_effect = QGraphicsDropShadowEffect()
-        history_shadow_effect.setBlurRadius(5);
+        history_shadow_effect.setBlurRadius(10);
         history_shadow_effect.setXOffset(5);
         history_shadow_effect.setYOffset(5);
-        history_shadow_effect.setColor(Qt.gray);
+        history_shadow_effect.setColor(QColor(0,0,0,20));
         history_content.setGraphicsEffect(history_shadow_effect)
         ###Layout
         history_layout.addWidget(history_title)
@@ -850,10 +849,10 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
         coins_content_layout.addWidget(coins_content_amounts)
         ###Effects
         coins_shadow_effect = QGraphicsDropShadowEffect()
-        coins_shadow_effect.setBlurRadius(5);
+        coins_shadow_effect.setBlurRadius(10);
         coins_shadow_effect.setXOffset(5);
         coins_shadow_effect.setYOffset(5);
-        coins_shadow_effect.setColor(Qt.gray);
+        coins_shadow_effect.setColor(QColor(0,0,0,20));
         coins_content.setGraphicsEffect(coins_shadow_effect)
         coins_layout.addWidget(coins_title)
         coins_layout.addWidget(coins_content)
@@ -878,10 +877,10 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
         balance_content_layout.addWidget(fiat_balance_label)
         ###Effects
         balance_shadow_effect = QGraphicsDropShadowEffect()
-        balance_shadow_effect.setBlurRadius(5);
+        balance_shadow_effect.setBlurRadius(10);
         balance_shadow_effect.setXOffset(5);
         balance_shadow_effect.setYOffset(5);
-        balance_shadow_effect.setColor(Qt.gray);
+        balance_shadow_effect.setColor(QColor(0,0,0,20));
         balance_content.setGraphicsEffect(balance_shadow_effect)
         balance_layout.addWidget(balance_title)
         balance_layout.addWidget(balance_content)
