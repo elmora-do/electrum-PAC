@@ -67,7 +67,7 @@ stop: 0 #A5CFFA, stop: 1 #72B2F8);
 
 
 /**********************/
-/* PAC Evolution CSS */
+/* $PAC CSS */
 /*
 0. OSX Reset
 1. Navigation Bar
@@ -312,7 +312,8 @@ QTreeWidget QHeaderView::section:horizontal{
 }
 
 /* Console Container */
-#console_container {
+#console_container > QPlainTextEdit{
+    font-size: 14px;
 }
 
 /* Balance Label */
@@ -430,11 +431,12 @@ QPushButton:disabled
 }
 
 QComboBox { /* Dropdown Menus */
-    border:1px solid #82C3E6;
+    border:0px;
     padding: 3px 5px 3px 5px;
-    background:#fcfcfc;
-    min-height:25px;
-    color:#818181;
+    background:#fff;
+    min-height:40px;
+    color:#000;
+    font-size: 20px;
 }
 
 QComboBox:checked {

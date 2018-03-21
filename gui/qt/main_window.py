@@ -916,6 +916,24 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
         show_transaction(tx, self, tx_desc)
 
     def create_receive_tab(self):
+        receive_widget = QWidget()
+        receive_widget.setObjectName("receive_container")
+        receive_widget_layout = QVBoxLayout(receive_widget)
+        receive_widget_layout.setMargin(50)
+        
+        #Section title
+        section_title = QLabel(receive_widget)
+        section_title.setObjectName("section_title")
+        section_title.setText(_("Receive"))
+        section_title.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+
+        #Section content
+        section_content = QWidget(receive_widget)
+        section_content.setObjectName("section_content")
+        content_layout = QVBoxLayout(section_content)
+        section_content.setLayout(content_layout)
+
+
         # A 4-column grid layout.  All the stretch is in the last column.
         # The exchange rate plugin adds a fiat widget in column 2
         self.receive_grid = grid = QGridLayout()
@@ -988,7 +1006,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
         from request_list import RequestList
         self.request_list = RequestList(self)
 
-        # layout
+        #layout
         vbox_g = QVBoxLayout()
         vbox_g.addLayout(grid)
         vbox_g.addStretch()
@@ -997,17 +1015,18 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
         hbox.addLayout(vbox_g)
         hbox.addWidget(self.receive_qr)
 
-        w = QWidget()
-        w.setObjectName("receive_container")
-        w.searchable_list = self.request_list
-        vbox = QVBoxLayout(w)
-        vbox.addLayout(hbox)
-        vbox.addStretch(1)
-        vbox.addWidget(self.receive_requests_label)
-        vbox.addWidget(self.request_list)
-        vbox.setStretchFactor(self.request_list, 1000)
+        section_content.searchable_list = self.request_list
+        content_layout.addLayout(hbox)
+        content_layout.addStretch(1)
+        content_layout.addWidget(self.receive_requests_label)
+        content_layout.addWidget(self.request_list)
+        content_layout.setStretchFactor(self.request_list, 1000)
+        
+        #Main layout
+        receive_widget_layout.addWidget(section_title)
+        receive_widget_layout.addWidget(section_content)  
 
-        return w
+        return receive_widget      
 
 
     def delete_payment_request(self, addr):
