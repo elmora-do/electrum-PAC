@@ -129,9 +129,6 @@ QGroupBox::title {
     border:0;
 }
 
-#main_window_nav_bar QTabBar {
-}
-
 QTabWidget#main_window_nav_bar::tab-bar {
     alignment: center;
 }

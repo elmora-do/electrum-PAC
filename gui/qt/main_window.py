@@ -94,8 +94,8 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
 
     def __init__(self, gui_object, wallet):
         QMainWindow.__init__(self)
-        self.resize(1020,710);
-        self.setMinimumSize(1020,710)
+        self.resize(1220,710);
+        self.setMinimumSize(1220,710)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
         self.setObjectName("main_window_container")
@@ -123,10 +123,11 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
         #central widget
         self.central_widget = central_widget = QWidget(self) 
         central_widget.setObjectName("central_widget")
-        central_widget.setMinimumSize(1020, 700) 
+        central_widget.setMinimumSize(1220, 700) 
         central_widget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding) 
 
         #top bar widget
+        self.is_menu_expanded = False
         self.create_top_bar()
         self.need_update = threading.Event()
 
@@ -148,13 +149,13 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
         # Disabled until API is stable.
 #        tabs.addTab(self.create_proposals_tab(), _('Budget Proposals'))
         tabs.setTabPosition(QTabWidget.West)
-        tabs.setMinimumSize(1020, 630)
+        tabs.setMinimumSize(1220, 630)
         tabs.setObjectName("main_window_nav_bar")
         tabs.setIconSize(QSize(30,30))
 
         #Home
         tabs.addTab(self.home_tab, QIcon(":icons/tab_home.png"), _('')) 
-        tabs.setTabToolTip(0, _('Home'))
+        tabs.setTabToolTip(0, _('Dashboard'))
         #History
         tabs.addTab(self.history_tab, QIcon(":icons/tab_history.png"), _('')) 
         tabs.setTabToolTip(1, _('History'))
@@ -784,7 +785,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
         content_grid_layout.setAlignment(Qt.AlignTop)
         content_grid_layout.setSpacing(15)
         content_grid_layout.setColumnStretch(0,1)
-        content_grid_layout.setColumnMinimumWidth(1,400)
+        content_grid_layout.setColumnMinimumWidth(1,350)
         section_content.setLayout(content_grid_layout)
 
         ##History widget
@@ -1942,7 +1943,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
         top_bar.setMinimumSize(1020, 70) 
         top_bar.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
 
-        self.menu_button = menu_button = StatusBarButton(QIcon(":icons/tab_menu.png"), _("Menu"), "")
+        self.menu_button = menu_button = StatusBarButton(QIcon(":icons/tab_menu.png"), _("Menu"), self.menu_expand)
         self.logo_label = logo_label = QLabel(top_bar)
         logo_label.setObjectName("logo_image")
         self.balance_label = balance_label = QLabel("")
@@ -2620,6 +2621,30 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
         self.dashboard_history_list.refresh_headers()
         self.dashboard_history_list.update()
         self.update_status()
+
+    def menu_expand(self):
+        if not self.is_menu_expanded:
+            self.is_menu_expanded = True
+            self.tabs.setIconSize(QSize(30,200))
+            self.tabs.setTabIcon(0, QIcon(":icons/tab_home_text.png"))
+            self.tabs.setTabIcon(1, QIcon(":icons/tab_history_text.png"))
+            self.tabs.setTabIcon(2, QIcon(":icons/tab_send_text.png"))
+            self.tabs.setTabIcon(3, QIcon(":icons/tab_receive_text.png"))
+            self.tabs.setTabIcon(4, QIcon(":icons/tab_addresses_text.png"))
+            self.tabs.setTabIcon(5, QIcon(":icons/tab_coins_text.png"))
+            self.tabs.setTabIcon(6, QIcon(":icons/tab_contacts_text.png"))
+            self.tabs.setTabIcon(7, QIcon(":icons/tab_console_text.png"))
+        else:
+            self.is_menu_expanded = False
+            self.tabs.setIconSize(QSize(30,30))
+            self.tabs.setTabIcon(0, QIcon(":icons/tab_home.png"))
+            self.tabs.setTabIcon(1, QIcon(":icons/tab_history.png"))
+            self.tabs.setTabIcon(2, QIcon(":icons/tab_send.png"))
+            self.tabs.setTabIcon(3, QIcon(":icons/tab_receive.png"))
+            self.tabs.setTabIcon(4, QIcon(":icons/tab_addresses.png"))
+            self.tabs.setTabIcon(5, QIcon(":icons/tab_coins.png"))
+            self.tabs.setTabIcon(6, QIcon(":icons/tab_contacts.png"))
+            self.tabs.setTabIcon(7, QIcon(":icons/tab_console.png"))
 
     def settings_dialog(self):
         self.need_restart = False

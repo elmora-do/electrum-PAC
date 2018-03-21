@@ -40,6 +40,14 @@
     <file>icons/tab_history.png</file>
     <file>icons/tab_receive.png</file>
     <file>icons/tab_send.png</file>
+    <file>icons/tab_home_text.png</file>
+    <file>icons/tab_addresses_text.png</file>
+    <file>icons/tab_coins_text.png</file>
+    <file>icons/tab_console_text.png</file>
+    <file>icons/tab_contacts_text.png</file>
+    <file>icons/tab_history_text.png</file>
+    <file>icons/tab_receive_text.png</file>
+    <file>icons/tab_send_text.png</file>
     <file>icons/tab_menu.png</file>
     <file>icons/tor_logo.png</file>
     <file>icons/top_logo.png</file>
