@@ -99,7 +99,7 @@ class ExchangeBase(PrintError):
 
 class CoinMarketCap(ExchangeBase):
     def get_rates(self, ccy):
-        json = self.get_json('api.coinmarketcap.com', '/v1/ticker/PAC/')
+        json = self.get_json('api.coinmarketcap.com', '/v1/ticker/paccoin/')
         quote_currencies = {}
         if not isinstance(json, list):
             return quote_currencies
@@ -177,8 +177,8 @@ class FxThread(ThreadJob):
         d = get_exchanges_by_ccy(h)
         return d.get(ccy, [])
 
-    def ccy_amount_str(self, amount, commas):
-        prec = CCY_PRECISIONS.get(self.ccy, 2)
+    def ccy_amount_str(self, amount, commas, ccy = None):
+        prec = CCY_PRECISIONS.get(self.ccy if ccy is None else ccy, 2)
         fmt_str = "{:%s.%df}" % ("," if commas else "", max(0, prec))
         return fmt_str.format(round(amount, prec))
 
@@ -241,21 +241,29 @@ class FxThread(ThreadJob):
         if rate:
             return Decimal(rate)
 
-    def format_amount_and_units(self, btc_balance):
-        rate = self.exchange_rate()
-        return '' if rate is None else "%s %s" % (self.value_str(btc_balance, rate), self.ccy)
+    def format_amount_and_units(self, btc_balance, ccy = None):
+        if ccy is None:
+            ccy = self.ccy
+            rate = self.exchange_rate()
+        else:
+            rate = self.exchange.quotes.get(ccy)
+        return '' if rate is None else "%s %s" % (self.value_str(btc_balance, rate, ccy), ccy)
 
-    def get_fiat_status_text(self, btc_balance, base_unit, decimal_point):
-        rate = self.exchange_rate()
+    def get_fiat_status_text(self, btc_balance, base_unit, decimal_point, ccy = None):
+        if ccy is None:
+            ccy = self.ccy
+            rate = self.exchange_rate()
+        else:
+            rate = self.exchange.quotes.get(ccy)
         return _("  (No FX rate available)") if rate is None else " 1 %s~%s %s" % (base_unit,
-            self.value_str(COIN / (10**(8 - decimal_point)), rate), self.ccy)
+            self.value_str(COIN / (10**(8 - decimal_point)), rate), ccy)
 
-    def value_str(self, satoshis, rate):
+    def value_str(self, satoshis, rate, ccy = None):
         if satoshis is None:  # Can happen with incomplete history
             return _("Unknown")
         if rate:
             value = Decimal(satoshis) / COIN * Decimal(rate)
-            return "%s" % (self.ccy_amount_str(value, True))
+            return "%s" % (self.ccy_amount_str(value, True, ccy))
         return _("No data")
 
     def history_rate(self, d_t):

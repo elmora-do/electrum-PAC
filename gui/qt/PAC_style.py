@@ -262,12 +262,12 @@ QWidget#console_container {
     border-image: url(:/icons/background.png) 300 0 100 0 stretch stretch;
 }
 
-QWidget#home_container #sub_section_content QLabel#fiat_balance_label{
-    font-size: 25px;
+QWidget#home_container #sub_section_content QLabel#important_label{
+    font-size: 20px;
     font-weight:bold;
 }
 
-QWidget#home_container #sub_section_content QLabel#alt_balance_label{
+QWidget#home_container #sub_section_content QLabel#normal_label{
     font-size: 20px !important;
 }
 

@@ -698,8 +698,10 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
         if not self.wallet:
             return
 
-        balance_text = ""
-        fiat_balance = ""
+        price_pac = ""
+        balance_pac = ""
+        balance_btc = ""
+        balance_fiat = ""
 
         if self.network is None or not self.network.is_running():
             text = _("Offline")
@@ -719,35 +721,43 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
                 icon = QIcon(":icons/status_lagging.png")
             else:
                 c, u, x = self.wallet.get_balance()
-                balance_text = self.format_amount_and_units(c)
-                text =  _("Balance" ) + ": %s "%(balance_text)
+                
+                #Dashboard data
+                price_pac = self.fx.get_fiat_status_text(c + u + x, self.base_unit(), self.get_decimal_point()) or ''
+                balance_pac = self.format_amount(c) + " " + self.base_unit()
+                balance_btc = self.fx.format_amount_and_units(c, "BTC")
+                balance_fiat = "$" + self.fx.format_amount_and_units(c, "USD")
+                
+                text =  _("Balance" ) + ": %s "%(self.format_amount_and_units(c))
                 if u:
                     text +=  " [%s unconfirmed]"%(self.format_amount(u, True).strip())
                 if x:
                     text +=  " [%s unmatured]"%(self.format_amount(x, True).strip())
-
                 # append fiat balance and price
                 if self.fx.is_enabled():
-                    fiat_balance = self.fx.get_fiat_status_text(c + u + x, self.base_unit(), self.get_decimal_point())
-                    text += fiat_balance or ''
+                    text += self.fx.get_fiat_status_text(c + u + x, self.base_unit(), self.get_decimal_point()) or ''
                 if not self.network.proxy:
                     icon = QIcon(":icons/status_connected.png")
                 else:
                     icon = QIcon(":icons/status_connected_proxy.png")
         else:
             text = _("Not connected")
-            balance_text = text
-            fiat_balance = text
+            price_pac = text
+            balance_pac = text
+            balance_btc = text
+            balance_fiat = text
             icon = QIcon(":icons/status_disconnected.png")
 
         self.tray.setToolTip("%s (%s)" % (text, self.wallet.basename().decode('utf8')))
+        #Top bar
         self.balance_label.setText(text)
-        self.dashboard_pac_balance_label.setText(balance_text)
-        if self.fx.is_enabled():
-            self.dashboard_fiat_balance_label.setText(fiat_balance or '')
-        else:
-            self.dashboard_fiat_balance_label.setText(balance_text)
         self.status_button.setIcon( icon )
+        #Dashboard
+        self.dashboard_price_label.setText(price_pac or '')
+        self.dashboard_pac_balance_label.setText(balance_pac or '')
+        self.dashboard_btc_balance_label.setText(balance_btc or '')
+        self.dashboard_fiat_balance_label.setText(balance_fiat or '')
+        
 
 
     def update_wallet(self):
@@ -811,7 +821,35 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
         history_content.setGraphicsEffect(history_shadow_effect)
         ###Layout
         history_layout.addWidget(history_title)
-        history_layout.addWidget(history_content)
+        history_layout.addWidget(history_content)        
+
+        ##Price widget
+        price_widget = QWidget(section_content)
+        price_widget.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
+        price_layout = QVBoxLayout(price_widget)
+        price_layout.setAlignment(Qt.AlignTop)
+        ###Title
+        price_title = QLabel(price_widget)
+        price_title.setObjectName("sub_section_title")
+        price_title.setText(_("Current price"))
+        ###Content
+        price_content = QWidget(price_widget)
+        price_content.setObjectName("sub_section_content")
+        price_content_layout = QVBoxLayout(price_content)
+        price_content.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.dashboard_price_label = price_label = QLabel("")
+        price_label.setObjectName("important_label")
+        price_label.setAlignment(Qt.AlignRight | QtCore.Qt.AlignVCenter)
+        price_content_layout.addWidget(price_label)
+        ###Effects
+        balance_shadow_effect = QGraphicsDropShadowEffect()
+        balance_shadow_effect.setBlurRadius(10);
+        balance_shadow_effect.setXOffset(5);
+        balance_shadow_effect.setYOffset(5);
+        balance_shadow_effect.setColor(QColor(0,0,0,20));
+        price_content.setGraphicsEffect(balance_shadow_effect)
+        price_layout.addWidget(price_title)
+        price_layout.addWidget(price_content)
 
         ##Coins widget
         coins_widget = QWidget(section_content)
@@ -821,7 +859,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
         ###Title
         coins_title = QLabel(coins_widget)
         coins_title.setObjectName("sub_section_title")
-        coins_title.setText(_("Coins"))
+        coins_title.setText(_("Balance"))
         ###Content
         coins_content = QWidget(coins_widget)
         coins_content.setObjectName("sub_section_content")
@@ -832,21 +870,21 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
         coins_content_amounts.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
         coins_content_amounts_layout = QVBoxLayout(coins_content_amounts)
         self.dashboard_pac_balance_label = pac_balance_label = QLabel("0 $PAC")
-        pac_balance_label.setObjectName("fiat_balance_label")
+        pac_balance_label.setObjectName("normal_label")
         pac_balance_label.setAlignment(Qt.AlignRight)
         pac_balance_label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
-        self.dashboard_btc_balance_label = btc_balance_label = QLabel("0.00000000 BTC")
-        btc_balance_label.setObjectName("alt_balance_label")
+        self.dashboard_btc_balance_label = btc_balance_label = QLabel("0 BTC")
+        btc_balance_label.setObjectName("normal_label")
         btc_balance_label.setAlignment(Qt.AlignRight)
         btc_balance_label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
-        self.dashboard_eth_balance_label = eth_balance_label = QLabel("0.00000000 ETH")
-        eth_balance_label.setObjectName("alt_balance_label")
-        eth_balance_label.setAlignment(Qt.AlignRight)
-        eth_balance_label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+        self.dashboard_fiat_balance_label = fiat_balance_label = QLabel("0 USD")
+        fiat_balance_label.setObjectName("normal_label")
+        fiat_balance_label.setAlignment(Qt.AlignRight)
+        fiat_balance_label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
         coins_content_amounts_layout.setSpacing(50)
         coins_content_amounts_layout.addWidget(pac_balance_label)
         coins_content_amounts_layout.addWidget(btc_balance_label)
-        coins_content_amounts_layout.addWidget(eth_balance_label)
+        coins_content_amounts_layout.addWidget(fiat_balance_label)
         coins_content_layout.addWidget(coins_content_amounts)
         ###Effects
         coins_shadow_effect = QGraphicsDropShadowEffect()
@@ -858,38 +896,10 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
         coins_layout.addWidget(coins_title)
         coins_layout.addWidget(coins_content)
 
-        ##Balance fiat widget
-        balance_widget = QWidget(section_content)
-        balance_widget.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
-        balance_layout = QVBoxLayout(balance_widget)
-        balance_layout.setAlignment(Qt.AlignTop)
-        ###Title
-        balance_title = QLabel(balance_widget)
-        balance_title.setObjectName("sub_section_title")
-        balance_title.setText(_("Balance"))
-        ###Content
-        balance_content = QWidget(balance_widget)
-        balance_content.setObjectName("sub_section_content")
-        balance_content_layout = QVBoxLayout(balance_content)
-        balance_content.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.dashboard_fiat_balance_label = fiat_balance_label = QLabel("$0.00 USD")
-        fiat_balance_label.setObjectName("fiat_balance_label")
-        fiat_balance_label.setAlignment(Qt.AlignRight | QtCore.Qt.AlignVCenter)
-        balance_content_layout.addWidget(fiat_balance_label)
-        ###Effects
-        balance_shadow_effect = QGraphicsDropShadowEffect()
-        balance_shadow_effect.setBlurRadius(10);
-        balance_shadow_effect.setXOffset(5);
-        balance_shadow_effect.setYOffset(5);
-        balance_shadow_effect.setColor(QColor(0,0,0,20));
-        balance_content.setGraphicsEffect(balance_shadow_effect)
-        balance_layout.addWidget(balance_title)
-        balance_layout.addWidget(balance_content)
-
         #row, col, rowspan, colspan
         content_grid_layout.addWidget (history_widget, 0, 0, -1, 1);
-        content_grid_layout.addWidget (coins_widget, 0, 1, 1, 1);
-        content_grid_layout.addWidget (balance_widget, 1, 1, 1, 1);
+        content_grid_layout.addWidget (price_widget, 0, 1, 1, 1);
+        content_grid_layout.addWidget (coins_widget, 1, 1, 1, 1);
         
         home_widget_layout.addWidget(section_title)
         home_widget_layout.addWidget(section_content)
@@ -2908,7 +2918,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
             if not self.fx: return
             currencies = sorted(self.fx.get_currencies(self.fx.get_history_config()))
             ccy_combo.clear()
-            ccy_combo.addItems([_('None')] + currencies)
+            ccy_combo.addItems(currencies)
             if self.fx.is_enabled():
                 ccy_combo.setCurrentIndex(ccy_combo.findText(self.fx.get_currency()))
 
