@@ -46,14 +46,9 @@ import masternode_manager
 
 DEFAULT_PORTS = {'t':'50001', 's':'50002'}
 
-#There is a schedule to move the default list to e-x (electrumx) by Jan 2018
-#Schedule is as follows:
-#move ~3/4 to e-x by 1.4.17
-#then gradually switch remaining nodes to e-x nodes
-
 DEFAULT_SERVERS = {
-    'electro-pac.paccoin.io':DEFAULT_PORTS,  # thelazier
-    # cert verify failed 'electrum-drk.club':DEFAULT_PORTS,         # duffman
+    'electro-pac.paccoin.io':DEFAULT_PORTS,  
+    'electrum.paccoin.io':DEFAULT_PORTS
 }
 
 def set_testnet():
