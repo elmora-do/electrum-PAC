@@ -1965,9 +1965,10 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
         self.seed_button = seed_button = StatusBarButton(QIcon(":icons/seed.png"), _("Seed"), self.show_seed_dialog )
         self.status_button = status_button = StatusBarButton(QIcon(":icons/status_connected.png"), _("Network"), lambda: self.gui_object.show_network_dialog(self) )
 
-        self.search_box = QLineEdit()
-        self.search_box.textChanged.connect(self.do_search)
-        self.search_box.hide()
+        self.search_box = search_box = QLineEdit()
+        search_box.setObjectName("search_box")
+        search_box.textChanged.connect(self.do_search)
+        search_box.hide()
         
         self.top_bar_layout = top_bar_layout = QHBoxLayout(top_bar);
         top_bar_layout.setObjectName("top_bar_layout")
@@ -1979,33 +1980,6 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
         top_bar_layout.addWidget(settings_button)
         top_bar_layout.addWidget(seed_button)
         top_bar_layout.addWidget(status_button)
-
-    def create_status_bar(self):
-
-        #sb = QStatusBar()
-        #sb.setFixedHeight(35)
-        #qtVersion = qVersion()
-
-        #self.balance_label = QLabel("")
-        #self.balance_label.setObjectName("main_window_balance")
-        #sb.addWidget(self.balance_label)
-
-        self.search_box = QLineEdit()
-        self.search_box.textChanged.connect(self.do_search)
-        self.search_box.hide()
-        sb.addPermanentWidget(self.search_box)
-
-        #self.lock_icon = QIcon()
-        #self.password_button = StatusBarButton(self.lock_icon, _("Password"), self.change_password_dialog )
-        #sb.addPermanentWidget(self.password_button)
-
-        #sb.addPermanentWidget(StatusBarButton(QIcon(":icons/preferences.png"), _("Preferences"), self.settings_dialog ) )
-        #self.seed_button = StatusBarButton(QIcon(":icons/seed.png"), _("Seed"), self.show_seed_dialog )
-        #sb.addPermanentWidget(self.seed_button)
-        #self.status_button = StatusBarButton(QIcon(":icons/status_disconnected.png"), _("Network"), lambda: self.gui_object.show_network_dialog(self))
-        #sb.addPermanentWidget(self.status_button)
-        #run_hook('create_status_bar', sb)
-        #self.setStatusBar(sb)
 
     def update_lock_icon(self):
         icon = QIcon(":icons/lock.png") if self.wallet.has_password() else QIcon(":icons/unlock.png")

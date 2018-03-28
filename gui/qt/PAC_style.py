@@ -193,6 +193,10 @@ QLabel {
     min-height:25px;
 }
 
+QLineEdit#search_box{
+    max-width: 250px;
+}
+
 /**********************/
 /* 3. Containers */
 
