@@ -908,8 +908,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
     def create_history_tab(self):
         from history_list import HistoryList
         self.history_list = l = HistoryList(self)
-        l.searchable_list = l
-        return self.create_list_tab("history", l)
+        return self.create_list_tab("history", l, True)
 
     def create_dashboard_history_tab(self):
         from dashboard_history_list import DashboardHistoryList
@@ -1760,8 +1759,10 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
         self.utxo_list.update()
         self.update_fee()
 
-    def create_list_tab(self, section_title, section_content):
+    def create_list_tab(self, section_title, section_content, searchable = False):
         list_widget = QWidget()
+        if searchable:
+            list_widget.searchable_list = section_content 
         list_widget.setObjectName(section_title.lower() + "_container")
         list_widget_layout = QVBoxLayout(list_widget)
         list_widget_layout.setMargin(50)
@@ -1781,17 +1782,17 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
     def create_addresses_tab(self):
         from address_list import AddressList
         self.address_list = l = AddressList(self)
-        return self.create_list_tab("addresses", l)
+        return self.create_list_tab("addresses", l, True)
 
     def create_utxo_tab(self):
         from utxo_list import UTXOList
         self.utxo_list = l = UTXOList(self)
-        return self.create_list_tab("coins", l)
+        return self.create_list_tab("coins", l, True)
 
     def create_contacts_tab(self):
         from contact_list import ContactList
         self.contact_list = l = ContactList(self)
-        return self.create_list_tab("contacts", l)
+        return self.create_list_tab("contacts", l, True)
 
     def create_proposals_tab(self):
         from masternode_budget_widgets import ProposalsTab
