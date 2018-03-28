@@ -2713,6 +2713,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
         dynfee_cb = QCheckBox(_('Use dynamic fees'))
         dynfee_cb.setChecked(self.config.is_dynfee())
         dynfee_cb.setToolTip(_("Use fees recommended by the server."))
+        dynfee_cb.setEnabled(False)
         fee_widgets.append((dynfee_cb, None))
         dynfee_cb.stateChanged.connect(on_dynfee)
 
