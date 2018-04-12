@@ -21,9 +21,17 @@ if __name__ == '__main__':
         'qrcode',
         'google/protobuf',
         'dns',
+        'x11_hash',
         'six',
         'jsonrpclib',
-	'socks',
+	    'socks',
+        'dis3',
+        'request',
+        'pefile',
+        'builtins',
+        'future',
+        'ordlookup',
+        'mnemonic',
     ]
     for module in deps:
         f, pathname, descr = imp.find_module(module)

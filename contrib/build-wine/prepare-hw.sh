@@ -40,6 +40,21 @@ $PYTHON -m pip install cython
 $PYTHON -m pip install trezor
 $PYTHON -m pip install keepkey
 $PYTHON -m pip install btchip-python
+$PYTHON -m pip install dis3
+$PYTHON -m pip install pyaes
+$PYTHON -m pip install dnspython
+$PYTHON -m pip install pefile
+$PYTHON -m pip install ecdsa
+$PYTHON -m pip install pbkdf2
+$PYTHON -m pip install qrcode
+$PYTHON -m pip install jsonrpclib
+$PYTHON -m pip install PySocks
+#apt-get install python-protobuf
+#apt-get install python-dns
+$PYTHON -m pip install dns
+$PYTHON -m  pip install dnspython
+$PYTHON -m  pip install jsonrpclib
+#apt-get install python-socks
 
 #git clone https://github.com/trezor/cython-hidapi.git
 #replace: from distutils.core import setup, Extenstion
@@ -48,5 +63,4 @@ $PYTHON -m pip install btchip-python
 #git submodule update
 #$PYTHON setup.py install
 #cd ..
-
 

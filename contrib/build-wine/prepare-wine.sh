@@ -4,10 +4,9 @@
 PYTHON_URL=https://www.python.org/ftp/python/2.7.13/python-2.7.13.msi
 PYQT4_URL=http://sourceforge.net/projects/pyqt/files/PyQt4/PyQt-4.11.1/PyQt4-4.11.1-gpl-Py2.7-Qt4.8.6-x32.exe
 PYWIN32_URL=http://sourceforge.net/projects/pywin32/files/pywin32/Build%20219/pywin32-219.win32-py2.7.exe/download
-PYINSTALLER_URL=https://pypi.python.org/packages/source/P/PyInstaller/PyInstaller-2.1.zip
+PYINSTALLER_URL=https://pypi.python.org/packages/3c/86/909a8c35c5471919b3854c01f43843d9b5aed0e9948b63e560010f7f3429/PyInstaller-3.3.1.tar.gz
 NSIS_URL=http://prdownloads.sourceforge.net/nsis/nsis-2.46-setup.exe?download
 SETUPTOOLS_URL=https://pypi.python.org/packages/2.7/s/setuptools/setuptools-0.6c11.win32-py2.7.exe
-
 
 ## These settings probably don't need change
 export WINEPREFIX=/opt/wine64
@@ -47,9 +46,9 @@ wget -O PyQt.exe "$PYQT4_URL"
 wine PyQt.exe
 
 # Install pyinstaller
-wget -O pyinstaller.zip "$PYINSTALLER_URL"
-unzip pyinstaller.zip
-mv PyInstaller-2.1 $WINEPREFIX/drive_c/pyinstaller
+wget -O pyinstaller.tar.gz "$PYINSTALLER_URL"
+tar -xvf pyinstaller.tar.gz
+mv PyInstaller-3.3.1 $WINEPREFIX/drive_c/pyinstaller
 
 # Install ZBar
 #wget -q -O zbar.exe "http://sourceforge.net/projects/zbar/files/zbar/0.10/zbar-0.10-setup.exe/download"

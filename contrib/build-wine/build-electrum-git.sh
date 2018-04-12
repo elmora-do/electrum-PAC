@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # You probably need to update only this link
-ELECTRUM_GIT_URL=git://github.com/spesmilo/electrum.git
+ELECTRUM_GIT_URL=git://github.com/PACCommunity/electrum-PAC.git
 BRANCH=master
-NAME_ROOT=electrum
+NAME_ROOT=electrum-PAC
 
 
 # These settings probably don't need any change
@@ -39,11 +39,13 @@ echo "Last commit: $VERSION"
 cd ..
 
 rm -rf $WINEPREFIX/drive_c/electrum
+
 cp -r electrum-git $WINEPREFIX/drive_c/electrum
 cp electrum-git/LICENCE .
 
 # add python packages (built with make_packages)
 cp -r ../../../packages $WINEPREFIX/drive_c/electrum/
+cp -r ../../../packages/* $WINEPREFIX/drive_c/Python27/Lib/
 
 # add locale dir
 cp -r ../../../lib/locale $WINEPREFIX/drive_c/electrum/lib/
@@ -63,15 +65,15 @@ $PYTHON "C:/pyinstaller/pyinstaller.py" --noconfirm --ascii --name $NAME_ROOT-$V
 # $VERSION could be passed to the electrum.nsi script, but this would require some rewriting in the script iself.
 wine "$WINEPREFIX/drive_c/Program Files (x86)/NSIS/makensis.exe" /DPRODUCT_VERSION=$VERSION electrum.nsi
 
-cd dist
-mv electrum-setup.exe $NAME_ROOT-$VERSION-setup.exe
-cd ..
+#cd dist
+#mv electrum-setup.exe $NAME_ROOT-$VERSION-setup.exe
+#cd ..
 
 # build portable version
-cp portable.patch $WINEPREFIX/drive_c/electrum
-pushd $WINEPREFIX/drive_c/electrum
-patch < portable.patch 
-popd
-$PYTHON "C:/pyinstaller/pyinstaller.py" --noconfirm --ascii --name $NAME_ROOT-$VERSION-portable.exe -w deterministic.spec
+#cp portable.patch $WINEPREFIX/drive_c/electrum
+#pushd $WINEPREFIX/drive_c/electrum
+#patch < portable.patch 
+#popd
+#$PYTHON "C:/pyinstaller/pyinstaller.py" --noconfirm --ascii --name $NAME_ROOT-$VERSION-portable.exe -w deterministic.spec
 
 echo "Done."

@@ -41,7 +41,7 @@ if crowdin_api_key:
 
 # Download & unzip
 print 'Download translations'
-zfobj = zipfile.ZipFile(StringIO(requests.request('GET', 'http://crowdin.com/download/project/' + crowdin_identifier + '.zip').content))
+zfobj = zipfile.ZipFile(StringIO(requests.request('GET', 'http://crowdin.com/download/project/' + crowdin_identifier + '.zip', verify=False).content))
 
 print 'Unzip translations'
 for name in zfobj.namelist():

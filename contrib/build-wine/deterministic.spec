@@ -35,21 +35,21 @@ hiddenimports = [
 ]
 
 datas = [
-    ('cacert.pem', 'requests'),
-    ('lib/currencies.json', 'electrum_PAC'),
-    ('lib/wordlist', 'electrum_PAC/wordlist'),
+    ('/opt/wine64/drive_c/electrum/packages/requests/cacert.pem', 'requests'),
+    ('/opt/wine64/drive_c/electrum/lib/currencies.json', 'electrum_PAC'),
+    ('/opt/wine64/drive_c/electrum/lib/wordlist', 'electrum_PAC/wordlist'),
 ]
 
 # https://github.com/pyinstaller/pyinstaller/wiki/Recipe-remove-tkinter-tcl
 sys.modules['FixTk'] = None
 excludes = ['FixTk', 'tcl', 'tk', '_tkinter', 'tkinter', 'Tkinter']
 
-a = Analysis(['electrum-PAC'],
+a = Analysis(['C:\\electrum\\electrum-PAC'],
              pathex=['plugins'],
              hiddenimports=hiddenimports,
              datas=datas,
              excludes=excludes,
-             runtime_hooks=['pyi_runtimehook.py'])
+             runtime_hooks=['C:\\electrum\\contrib\\pyi_runtimehook.py'])
 
 # http://stackoverflow.com/questions/19055089/
 for d in a.datas:
@@ -75,7 +75,7 @@ exe = EXE(pyz,
           strip=False,
           upx=False,
           console=False,
-          icon='icons/electrum-PAC.ico',
+          icon='/opt/wine64/drive_c/electrum/icons/electrum-PAC.ico',
           name=os.path.join('build\\pyi.win32\\electrum', cmdline_name))
 
 # exe with console output
@@ -86,7 +86,7 @@ conexe = EXE(pyz,
           strip=False,
           upx=False,
           console=True,
-          icon='icons/electrum-PAC.ico',
+          icon='/opt/wine64/drive_c/electrum/icons/electrum-PAC.ico',
           name=os.path.join('build\\pyi.win32\\electrum',
                             'console-%s' % cmdline_name))
 
@@ -94,7 +94,7 @@ conexe = EXE(pyz,
 tctl_a = Analysis(['C:/Python27/Scripts/trezorctl'],
                   hiddenimports=['pkgutil'],
                   excludes=excludes,
-                  runtime_hooks=['pyi_tctl_runtimehook.py'])
+                  runtime_hooks=['C:\\electrum\\contrib\\pyi_tctl_runtimehook.py'])
 
 tctl_pyz = PYZ(tctl_a.pure)
 
