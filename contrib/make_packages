@@ -25,12 +25,12 @@ if __name__ == '__main__':
         'six',
         'jsonrpclib',
 	    'socks',
-        'dis3',
-        'request',
-        'pefile',
-        'builtins',
-        'future',
-        'ordlookup',
+        #'dis3',
+        #'request',
+        #'pefile',
+        #'builtins',
+        #'future',
+        #'ordlookup',
         'mnemonic',
     ]
     for module in deps:

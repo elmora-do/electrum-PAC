@@ -2681,16 +2681,15 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
         nz.valueChanged.connect(on_nz)
         gui_widgets.append((nz_label, nz))
 
-        #def on_dynfee(x):
-        #    self.config.set_key('dynamic_fees', x == Qt.Checked)
-        #    self.fee_slider.update()
-        #    update_maxfee()
-        #dynfee_cb = QCheckBox(_('Use dynamic fees'))
-        #dynfee_cb.setChecked(self.config.is_dynfee())
-        #dynfee_cb.setToolTip(_("Use fees recommended by the server."))
-        #dynfee_cb.setEnabled(False)
+        def on_dynfee(x):
+            self.config.set_key('dynamic_fees', x == Qt.Checked)
+            self.fee_slider.update()
+            update_maxfee()
+        dynfee_cb = QCheckBox(_('Use dynamic fees'))
+        dynfee_cb.setChecked(self.config.is_dynfee())
+        dynfee_cb.setToolTip(_("Use fees recommended by the server."))
         #fee_widgets.append((dynfee_cb, None))
-        #dynfee_cb.stateChanged.connect(on_dynfee)
+        dynfee_cb.stateChanged.connect(on_dynfee)
 
         def on_maxfee(x):
             m = maxfee_e.get_amount()
@@ -2863,13 +2862,16 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
 
         choosers = sorted(coinchooser.COIN_CHOOSERS.keys())
         chooser_name = coinchooser.get_name(self.config)
-        msg = _('Choose coin (UTXO) selection method.  The following are available:\n\n')
-        msg += '\n\n'.join(fmt_docs(*item) for item in coinchooser.COIN_CHOOSERS.items())
+        msg = _('Choose coin (UTXO) selection method.')
+        #msg = _('Choose coin (UTXO) selection method.  The following are available:\n\n')
+        #msg += '\n\n'.join(fmt_docs(*item) for item in coinchooser.COIN_CHOOSERS.items())
+
         chooser_label = HelpLabel(_('Coin selection') + ':', msg)
         chooser_combo = QComboBox()
         chooser_combo.addItems(choosers)
         i = choosers.index(chooser_name) if chooser_name in choosers else 0
         chooser_combo.setCurrentIndex(i)
+
         def on_chooser(x):
             chooser_name = choosers[chooser_combo.currentIndex()]
             self.config.set_key('coin_chooser', chooser_name)

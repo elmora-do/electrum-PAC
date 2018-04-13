@@ -113,7 +113,6 @@ class SimpleConfig(PrintError):
         if not self.is_modifiable(key):
             print_stderr("Warning: not changing config key '%s' set on the command line" % key)
             return
-
         with self.lock:
             if key in self.user_config and self.user_config[key] == value:
                 return
@@ -123,6 +122,13 @@ class SimpleConfig(PrintError):
         return
 
     def get(self, key, default=None):
+        #Hardcoded values
+        if key == 'dynamic_fees':
+          return False
+        if key == 'fee_per_kb':
+          return 1000
+        if key == 'show_fee':
+          return True
         with self.lock:
             out = self.cmdline_options.get(key)
             if out is None:
