@@ -1,18 +1,8 @@
-matrix:
-    include:
-        - os: osx
-          osx_image: xcode7.3
-    before_install:
-        - source contrib/travis/electrum_PAC_version_env.sh
-        - echo electrum-PAC version is $ELECTRUM_PAC_VERSION
-        - mkdir -p build && cp contrib/travis/* ./build/ && ./build/before_install-osx.sh
-          fi
+os: osx
+osx_image: xcode7.2
+before_install:
+    - source contrib/travis/electrum_PAC_version_env.sh
+    - echo electrum-PAC version is $ELECTRUM_PAC_VERSION
+    - mkdir -p build && cp contrib/travis/* ./build/ && ./build/before_install-osx.sh
 script:
     - ./build/travis-build-osx.sh
-      fi
-deploy:
-    - provider: releases
-    file:
-        - build/electrum-PAC/dist/electrum-PAC*.dmg
-    on:   
-        repo: devfsc/electrum-PAC
