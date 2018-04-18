@@ -12,6 +12,6 @@ deploy:
   secret_access_key:
     secure: iHXceXMiQMri+3qexooUNrdNZAjfbJva6dFjcFKcS2Q3pSTkErafCPte1VpltDd19xvGsKzhcg2P7XQEa19wn/IOG94XrBDrLxnhCJgGf/hqS2OchGpbnVB418y29IwRrhTqfjv6fRcxxd6sJvb4h91+4CRlOHbiHQ7HXKUeRrwsjhceInC9Dej/AOq0NfoeGKv7JbMuHk2wuhddlderSj8r0YRfeKlSA2VYTVZD/EbNDRIiugrWBGxUoR8Qjqnu11IxYk1KvayplkevEjl4dLA1JT0gt4kAcOJLoXyBtbiiUDWFB/pqSMnK5C8EcIiQlKfyMB/WY5n1+OdAGzFDzrptMrBFBC8u9JaZmxCx5UPPOiRH0CY9TkqEXVv7oWc5JbXzgby2T8xP85KuZ5Zzvb9Tgqc4WFjkemfGuqDyS1Ol+c9hEdDK+0O/Y/lbcSWvrMs5XVjkZkl7kkmC7OatWxhRUil7QAVQTqmxmOYFo2F8zd80njz+U1AZUP5ol1qREnLPRDwxeYyxsHdOqu1UNEn6if5J90u6rNIe2JLbLSEOn3YoRNHPxrDgFmH0VcP1RxQwJ7Ra8ITXl0EpCmMLX5TeQK6ixsOFT17v8L8yO9pf+LgXA5jBT03ndoPwn/6kkaHbztWqQo9TsvcGAYzmuEmF2iR23quRm7aIrQDUXPA=
   bucket: dmg-travis-pac
-  local-dir: build/electrum-PAC/dist/electrum-PAC-$ELECTRUM_PAC_VERSION-macosx.dmg
+  local-dir: /Users/travis/build/devfsc/electrum-PAC/build/electrum-PAC/dist/electrum-PAC-Beta-macosx.dmg
   on:
     repo: devfsc/electrum-PAC
