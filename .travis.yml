@@ -1,8 +1,14 @@
 os: osx
 osx_image: xcode7.3
 before_install:
-    - source contrib/travis/electrum_PAC_version_env.sh
-    - echo electrum-PAC version is $ELECTRUM_PAC_VERSION
-    - mkdir -p build && cp contrib/travis/* ./build/ && ./build/before_install-osx.sh
+- source contrib/travis/electrum_PAC_version_env.sh
+- echo electrum-PAC version is $ELECTRUM_PAC_VERSION
+- mkdir -p build && cp contrib/travis/* ./build/ && ./build/before_install-osx.sh
 script:
-    - ./build/travis-build-osx.sh
+- "./build/travis-build-osx.sh"
+deploy:
+  provider: s3
+  access_key_id: AKIAJ6D7R2ZC4K37ZHXQ
+  secret_access_key:
+    secure: QT6YVFIe/WFHu2srlyherpTLXJrYsUbU9Q1VuS0KAwk8T+BXMrnseQjkF+VXcni2BcGc+sxdnfS3qaLLGYBRXa8ZxN8jOrCk9tPAPTf5CtbDX5cl/OvmIMqedNr/IbUS9ga36R8Vd69nFBG8bARio/yrVOIDTa8EIebQENita8Yh/O2Lve+mxSsAvntQ1lJ9VT4NvjS7SI4ow8jIP5LeRaYDRwfCxBZKHllzc20wetaCv/V0oo0PPTpCqJaQJ0bgElyWt+9omc+tG3pWonHXRwiOXgpoA75kxPlV2Fw7ucaT8XmBV86qjr/R2vh6KPQK1Maqu3nWFQKVNV5ETaLeWZcUP48Us+g7LygpEIhLzA1A8W/6G6K14EsgqzN385krNivwq7XMQCjYPd5oG3h9X+ZR8aJ9cGYsUxF/LXzwcA7tJoazki4sM5f6Iy8RpN5xXwBSufY0BFjFWXar69L9w6cENUlZXrdGyWIlo/LGww2sdueofqPZ7ttDTRPsUehsAzUbNDTq8BdvDgnNOdAq9XdYgY7MYmKDHlExg6207j+FrFV0dw2R9pOM1QPdt77kO6dvKd78JlBKmAadmxwyhfMHulnrkigOxUQESKeiVBR2pkOT1TPsSq6f9lPiwp8zdoez1vfayMCmq4eLVG+7iNUFe8G1sBbcYL+kT3ipOeE=
+  bucket: dmg-travis-pac
