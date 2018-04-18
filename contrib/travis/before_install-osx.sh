@@ -1,9 +1,4 @@
 #!/bin/bash
-set -ev
-
-if [[ -z $TRAVIS_TAG ]]; then
-  exit 0
-fi
 
 cd build
 
