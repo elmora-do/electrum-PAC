@@ -1,16 +1,12 @@
 #!/bin/bash
-BUILD_REPO_URL=https://github.com/akhavr/electrum-PAC.git
+BUILD_REPO_URL=https://github.com/devfsc/electrum-PAC.git
 
 export PATH="/usr/local/opt/python@2/bin:$PATH"
 export PATH="/usr/local/opt/python@2/libexec/bin:$PATH"
 
 cd build
 
-if [[ -z $TRAVIS_TAG ]]; then
-  exit 0
-else
-  git clone --branch $TRAVIS_TAG $BUILD_REPO_URL electrum-PAC
-fi
+git clone https://github.com/devfsc/electrum-PAC
 
 cd electrum-PAC
 
